@@ -5,10 +5,7 @@ using UnityEngine;
 public class PickObject : MonoBehaviour
 {
     Camera cam;
-    public GameObject[] Worldtargets;
-    public int numValue = 0;
     public int orderValue = 0;
-
 
     private void Start()
     {
@@ -22,9 +19,9 @@ public class PickObject : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (hit.collider.gameObject.tag == "target" && hit.collider.gameObject.GetComponent<ObjectOrderManager>().myNumber == orderValue)
+                if (hit.collider.gameObject.tag == "target" && hit.collider.gameObject.GetComponent<TargetController>().myNumber == orderValue)
                 {
-                    hit.collider.gameObject.SetActive(false) ;
+                    hit.collider.gameObject.GetComponent<TargetController>().StartShake();
                     orderValue++;
                 }
                 else
@@ -33,25 +30,6 @@ public class PickObject : MonoBehaviour
                 }
             }
         }
-        giveOrder();
     }
-    void giveOrder()
-    {
-        if (numValue < Worldtargets.Length)
-        {
-            Worldtargets[numValue].GetComponent<ObjectOrderManager>().myNumber = numValue;
-            Debug.Log(Worldtargets[numValue]);
-            Debug.Log(Worldtargets[numValue].GetComponent<ObjectOrderManager>().myNumber);
-            numValue++;
-        }
-
-
-            //if( numValue < Worldtargets.Length)
-            // {
-            //     targets.Add(Worldtargets[numValue], numValue);
-            //     Debug.Log(numValue);
-            //     numValue++;
-            //     Debug.Log(targets.Values);
-            // }
-    }
+   
 }
