@@ -12,14 +12,16 @@ public class CharacterControls : MonoBehaviour
     public float Gravity;
     public float VerticalSpeed;
 
+
     public Vector3 moveDirection;
 
     void Update()
     {
         //this stuff happens
         Move();
+       
     }
-
+    
     //The actual movement using the character controller
     private void Move()
     {
@@ -48,4 +50,5 @@ public class CharacterControls : MonoBehaviour
         //movement
         CharControl.Move(moveDirection * Time.deltaTime);
     }
+
 }
