@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/ProBuilder Data.meta
 guid: c9bb68c5824cac74aa0dbfa91f77b622
+=======
+guid: 40cca0371e2013845a9fd837591e4ece
+>>>>>>> 11d6be9d21993207323670abbc18c0828bfa5a1b:Assets/Prototype/Andy/2DAssets.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
