@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class RaycastPick : MonoBehaviour
 {
-    public float rayDistance;
+    public float rayDistance = 50;
     public int orderValue = 0;
-    int layerMask = 1 << 8;
+    int targetMask = 1 << 8;
 
 
     private void Update()
     {
-        Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        Debug.DrawLine(transform.position, fwd, Color.yellow);
+        Debug.DrawRay(transform.position, transform.forward, Color.yellow);
     }
     void FixedUpdate()
     {
@@ -23,13 +22,10 @@ public class RaycastPick : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            Debug.Log("spacing");
             RaycastHit hit;
-            Vector3 fwd = transform.TransformDirection(Vector3.forward);
-            if (Physics.Raycast(transform.position, fwd, out hit, rayDistance, layerMask))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, targetMask))
             {
-
-                if (hit.collider.gameObject.tag == "target" && hit.collider.gameObject.GetComponent<TargetController>().myNumber == orderValue)
+                if (hit.collider.gameObject.GetComponent<TargetController>().myNumber == orderValue)
                 {
                     hit.collider.gameObject.GetComponent<TargetController>().StartShake();
                     orderValue++;

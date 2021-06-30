@@ -14,7 +14,10 @@ public class CharacterControls : MonoBehaviour
 
 
     public Vector3 moveDirection;
-
+    private void Start()
+    {
+        gameObject.GetComponent<CharacterController>();
+    }
     void Update()
     {
         //this stuff happens
