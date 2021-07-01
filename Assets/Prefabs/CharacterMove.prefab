@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdadb38ff7af0884e802f506d78230e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 20
+  rayDistance: 0.7
   orderValue: 0
 --- !u!1 &8077295012624757574
 GameObject:

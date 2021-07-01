@@ -6,7 +6,7 @@ public class PickObject : MonoBehaviour
 {
     Camera cam;
     public int orderValue = 0;
-    int targetMask = 1 << 8;
+    int targetMask = 1 << 9;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class PickObject : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("that is wrong");
+                    //Debug.Log("that is wrong");
                 }
             }
         }

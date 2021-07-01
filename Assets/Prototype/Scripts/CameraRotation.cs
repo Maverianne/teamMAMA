@@ -18,8 +18,8 @@ public class CameraRotation : MonoBehaviour
     private void Start()
     {
         
-        currentPos.rotation = transform.rotation;
-        startPos = currentPos.eulerAngles;
+        //currentPos.rotation = transform.rotation;
+        //startPos = currentPos.eulerAngles;
     }
     private void Update()
     {

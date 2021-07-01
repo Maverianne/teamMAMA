@@ -6,6 +6,7 @@ TagManager:
   tags:
   - target
   - PickUp
+  - bridge
   layers:
   - Default
   - TransparentFX

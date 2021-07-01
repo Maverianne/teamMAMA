@@ -6,7 +6,14 @@ public class TargetController : MonoBehaviour
 {
 
     public int myNumber;
-
+    private Material objMaterial, currentMaterial;
+    private Color currentColor;
+    public bool highlighted;
+    private void Start()
+    {
+        objMaterial = gameObject.GetComponent<MeshRenderer>().material;
+        currentColor = gameObject.GetComponent<MeshRenderer>().material.color;
+    }
     public void StartShake()
     {
         StartCoroutine(Shake(.5f, 3f));
@@ -28,5 +35,30 @@ public class TargetController : MonoBehaviour
         }
         gameObject.SetActive(false);
         transform.localPosition = startPos;
+    }
+    private void Update()
+    {
+        if (highlighted && myNumber == RaycastPick.instance.orderValue)
+        {
+            objMaterial.color = Color.white;
+        }
+        else if(!highlighted && myNumber == RaycastPick.instance.orderValue)
+        {
+            objMaterial.color = currentColor;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            highlighted = true; 
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            highlighted = false;
+        }
     }
 }

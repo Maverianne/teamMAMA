@@ -6,6 +6,11 @@ public class ObjectManager : MonoBehaviour
 {
     public int numValue = 0;
     public GameObject[] worldTargets;
+    public static ObjectManager instance;
+    private void Awake()
+    {
+        instance = this; 
+    }
     private void Update()
     {
         giveOrder();
