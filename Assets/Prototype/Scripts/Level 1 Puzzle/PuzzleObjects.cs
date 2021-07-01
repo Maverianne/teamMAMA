@@ -41,4 +41,12 @@ public class PuzzleObjects : MonoBehaviour
             playerClose = true;
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            playerClose = false;
+        }
+    }
 }
+
