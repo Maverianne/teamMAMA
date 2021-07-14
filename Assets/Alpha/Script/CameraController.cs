@@ -8,8 +8,7 @@ public class CameraController : MonoBehaviour
 
     public GameObject targetObj;
     private float targetAngle = 0;
-    const float rotationAmount = 2.5f;
-    public float speed = 10f;
+    const float rotationAmount = 1f;
 
     public bool rotating;
 

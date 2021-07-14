@@ -11,6 +11,9 @@ public class RaycastPick : MonoBehaviour
     public static RaycastPick instance;
     public Vector3 moveDirection;
     public Camera camTarget;
+
+    public Transform camTrans;
+    public Vector3 camForward;
     private void Awake()
     {
         instance = this; 
@@ -23,7 +26,13 @@ public class RaycastPick : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        moveDirection = new Vector3(x, 0, z);
+
+        camTrans = camTarget.transform;
+        camForward = camTrans.transform.forward;
+        camForward.y = 0;
+        camForward = camForward.normalized;
+
+        moveDirection = (x * camTrans.right + z * camForward).normalized;
         if (moveDirection != Vector3.zero) transform.rotation = Quaternion.LookRotation(moveDirection);
     }
     void FixedUpdate()
