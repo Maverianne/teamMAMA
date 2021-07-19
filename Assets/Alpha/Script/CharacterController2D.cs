@@ -19,23 +19,30 @@ public class CharacterController2D : MonoBehaviour
     public float gravity;
     public float verticalSpeed;
 
-    //public GameObject targetObj;
-    //private float targetAngle = 0;
-    //const float rotationAmount = 2.5f;
-
-    //public bool rotating;
+    public bool facingRight;
 
 
 
     public Vector3 moveDirection;
     private void Start()
     {
-        charSprite.GetComponent<CharacterController>();
+        charSprite.GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
         Movement();
         Rotate();
+        Flip();
+        //transform.LookAt(camTarget.transform);
+    }
+    private void Flip()
+    {
+        float horizontalVal = Input.GetAxis("Horizontal");
+        if((horizontalVal < 0 && facingRight) || (horizontalVal > 0 && !facingRight))
+        {
+            facingRight = !facingRight;
+            charSprite.transform.Rotate(new Vector3(0, 180, 0));
+        }
     }
 
     private void Rotate()
@@ -63,13 +70,11 @@ public class CharacterController2D : MonoBehaviour
 
         camTrans = camTarget.transform;
 
-        // camForward = Vector3.Scale(camTrans.forward, new Vector3(1, 0, 1)).normalized;
         camForward = camTrans.transform.forward;
         camForward.y = 0;
         camForward = camForward.normalized;
         
         moveDirection = (x * camTrans.right + z * camForward).normalized;
-        //moveDirection = camTarget.transform.TransformDirection(x,0,z);
 
         //direction
         moveDirection *= speed;
