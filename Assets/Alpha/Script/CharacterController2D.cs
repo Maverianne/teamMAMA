@@ -22,48 +22,22 @@ public class CharacterController2D : MonoBehaviour
     //for fliping character
     public bool facingRight;
 
+
     public float force;
     //for pick up and drop
-    public bool pickUp, carrying;
+    public bool pickUp, carrying, facingforward;
     public GameObject pickObj;
+    public GameObject pickUpper;
     public Vector3 moveDirection;
-    private void Start()
-    {
-        charSprite.GetComponent<SpriteRenderer>();
-    }
+   
     private void Update()
     {
         Movement();
         Rotate();
         Flip();
         PickingObject();
-        if (carrying)
-            DropObject();
         //transform.LookAt(camTarget.transform);
     }
-    //private void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    if (hit.transform.tag == "pushableObject" && hit != null /*&& Input.GetKeyDown(KeyCode.R)*/)
-    //    {
-    //        Vector3 dir = hit.transform.position - transform.position;
-    //        dir = -dir.normalized;
-    //        Rigidbody rb = hit.collider.attachedRigidbody;
-    //        rb.isKinematic = false;
-    //        rb.AddForce(dir * force);
-    //        //if(rb != null)
-    //        //{
-    //        //    if(!rb.isKinematic && hit.moveDirection.y < 0.3)
-    //        //    {
-
-    //        //    }
-    //        //}
-    //    }
-    //    else
-    //    {
-    //        Rigidbody rb = hit.collider.attachedRigidbody;
-    //        rb.isKinematic = true;
-    //    }
-    //}
     private void PickingObject()
     {
         if (pickUp && pickObj.GetComponent<PushObject>().available)
@@ -71,14 +45,14 @@ public class CharacterController2D : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.V))
             {
                 carrying = true;
-                pickObj.transform.parent = gameObject.transform;
+                pickObj.transform.parent = pickUpper.gameObject.transform;
+                pickObj.transform.rotation = Quaternion.Euler(pickUpper.transform.rotation.x, pickUpper.transform.rotation.y, pickUpper.transform.rotation.z);
             }
         }
-    }
-    private void DropObject()
-    {
+        if (carrying)
             if (Input.GetKeyDown(KeyCode.C))
             {
+                pickObj.GetComponent<PushObject>().dropped = true;
                 carrying = false;
                 pickObj.transform.parent = null;
             }
@@ -106,6 +80,13 @@ public class CharacterController2D : MonoBehaviour
         {
             facingRight = !facingRight;
             charSprite.transform.Rotate(new Vector3(0, 180, 0));
+        }
+
+        float forwardVal = Input.GetAxis("Vertical");
+        if ((forwardVal < 0 && facingforward) || (forwardVal > 0 && !facingforward))
+        {
+            facingforward = !facingforward;
+            pickUpper.transform.Rotate(new Vector3(0, 180, 0));
         }
     }
 

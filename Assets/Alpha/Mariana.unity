@@ -617,6 +617,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589492969}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &782225672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 782225673}
+  m_Layer: 0
+  m_Name: PickUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &782225673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782225672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1377129019}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &797957945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1293,7 @@ Transform:
   m_Children:
   - {fileID: 223312467}
   - {fileID: 9455386}
+  - {fileID: 782225673}
   m_Father: {fileID: 1361835506}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1290,7 +1321,9 @@ MonoBehaviour:
   force: 0
   pickUp: 0
   carrying: 0
+  facingforward: 0
   pickObj: {fileID: 0}
+  pickUpper: {fileID: 782225672}
   moveDirection: {x: 0, y: 0, z: 0}
 --- !u!143 &1377129021
 CharacterController:
@@ -1443,13 +1476,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554871456}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &1554871462
 MonoBehaviour:
@@ -1464,7 +1497,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   available: 1
+  dropped: 0
   offset: 0.45
+  rb: {fileID: 0}
+  rbOgi: 0
+  gravity: 0
+  ground: 0
+  player: {fileID: 1377129018}
 --- !u!65 &1554871463
 BoxCollider:
   m_ObjectHideFlags: 0

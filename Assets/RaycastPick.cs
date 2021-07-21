@@ -8,7 +8,6 @@ public class RaycastPick : MonoBehaviour
     public float rayDistance = 0.7f;
     public int orderValue = 0;
     int targetMask = 1 << 9;
-    int pushMask = 1 << 10;
     public static RaycastPick instance;
     public Vector3 moveDirection;
     public Camera camTarget;
@@ -60,17 +59,4 @@ public class RaycastPick : MonoBehaviour
             }
         }
     }
-
-    private void ObjectPushing()
-    {
-        if (Input.GetKeyDown("fire1"))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, rayDistance, pushMask))
-            {
-              
-            }
-        }
-    }
-
 }

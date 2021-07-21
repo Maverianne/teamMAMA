@@ -4,36 +4,50 @@ using UnityEngine;
 
 public class PushObject : MonoBehaviour
 {
-    public bool available;
+    public bool available, dropped;
     public float offset;
     public Rigidbody rb;
+    public RigidbodyConstraints rbOgi;
+    public float gravity;
+    public float ground;
+    public GameObject player;
+    bool IsGrounded;
+    private void Awake()
+    {
+     
+    }
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>(); 
+        rbOgi = rb.constraints;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Carried();
     }
     public void Carried()
     {
-        if(transform.parent != null)
+        if (transform.parent != null)
         {
             rb.useGravity = false;
-            transform.position = new Vector3(transform.parent.position.x - 0.2f, transform.parent.position.y + offset, transform.parent.position.z);
-            Debug.Log("I'm being held");
+            transform.position = transform.parent.position;
+            //rb.freezeRotation = false;
+            //rb.constraints = RigidbodyConstraints.None;
+            //new Vector3(transform.parent.localPosition.x, transform.parent.localPosition.y, transform.parent.forward);
+      
         }
-        else
+        if (dropped)
         {
-            rb.useGravity = true;
-            rb.isKinematic = true;
             StartCoroutine("Gravity");
         }
     }
     IEnumerator Gravity()
     {
-        yield return new WaitForSeconds(1f);
         rb.useGravity = true;
-        rb.isKinematic = true;
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+        yield return new WaitForSeconds(2f);
+        rb.useGravity = false;
+        rb.constraints = rbOgi;
+        dropped = false;
     }
 }
