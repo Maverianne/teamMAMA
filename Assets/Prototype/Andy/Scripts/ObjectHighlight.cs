@@ -12,12 +12,6 @@ public class ObjectHighlight : MonoBehaviour
 		objMat = GetComponent<Renderer>().material;
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
      private void OnMouseEnter()
     {
     	//renderer.material.color = Color.magenta;

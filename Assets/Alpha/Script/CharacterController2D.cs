@@ -19,10 +19,13 @@ public class CharacterController2D : MonoBehaviour
     public float gravity;
     public float verticalSpeed;
 
+    //for fliping character
     public bool facingRight;
 
-
-
+    public float force;
+    //for pick up and drop
+    public bool pickUp, carrying;
+    public GameObject pickObj;
     public Vector3 moveDirection;
     private void Start()
     {
@@ -33,7 +36,68 @@ public class CharacterController2D : MonoBehaviour
         Movement();
         Rotate();
         Flip();
+        PickingObject();
+        if (carrying)
+            DropObject();
         //transform.LookAt(camTarget.transform);
+    }
+    //private void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+    //    if (hit.transform.tag == "pushableObject" && hit != null /*&& Input.GetKeyDown(KeyCode.R)*/)
+    //    {
+    //        Vector3 dir = hit.transform.position - transform.position;
+    //        dir = -dir.normalized;
+    //        Rigidbody rb = hit.collider.attachedRigidbody;
+    //        rb.isKinematic = false;
+    //        rb.AddForce(dir * force);
+    //        //if(rb != null)
+    //        //{
+    //        //    if(!rb.isKinematic && hit.moveDirection.y < 0.3)
+    //        //    {
+
+    //        //    }
+    //        //}
+    //    }
+    //    else
+    //    {
+    //        Rigidbody rb = hit.collider.attachedRigidbody;
+    //        rb.isKinematic = true;
+    //    }
+    //}
+    private void PickingObject()
+    {
+        if (pickUp && pickObj.GetComponent<PushObject>().available)
+        {
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                carrying = true;
+                pickObj.transform.parent = gameObject.transform;
+            }
+        }
+    }
+    private void DropObject()
+    {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                carrying = false;
+                pickObj.transform.parent = null;
+            }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "pushableObject" && !carrying)
+        {
+            pickObj = other.gameObject;
+            pickUp = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "pushableObject" && !carrying)
+        {
+            pickObj = null;
+            pickUp = false;
+        }
     }
     private void Flip()
     {
