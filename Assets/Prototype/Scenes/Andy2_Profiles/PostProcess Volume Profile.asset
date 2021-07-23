@@ -1373,8 +1373,8 @@ MonoBehaviour:
   settings:
   - {fileID: -5581756653045783857}
   - {fileID: -5039676733318614188}
-  - {fileID: 5704420635469945548}
---- !u!114 &5704420635469945548
+  - {fileID: 9177571464892667245}
+--- !u!114 &9177571464892667245
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1391,14 +1391,14 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   colored:
-    overrideState: 1
+    overrideState: 0
     value: 1
   intensity:
     overrideState: 1
-    value: 0.257
+    value: 0.1
   size:
-    overrideState: 1
-    value: 0.3
+    overrideState: 0
+    value: 1
   lumContrib:
     overrideState: 0
     value: 0.8
