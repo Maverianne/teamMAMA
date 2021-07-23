@@ -10,12 +10,9 @@ public class PushObject : MonoBehaviour
     public RigidbodyConstraints rbOgi;
     public float gravity;
     public float ground;
-    public GameObject player;
-    bool IsGrounded;
-    private void Awake()
-    {
-     
-    }
+    public GameObject home;
+    public Transform homeTrans;
+
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>(); 
@@ -30,10 +27,8 @@ public class PushObject : MonoBehaviour
         if (transform.parent != null)
         {
             rb.useGravity = false;
-            transform.position = transform.parent.position;
-            //rb.freezeRotation = false;
             //rb.constraints = RigidbodyConstraints.None;
-            //new Vector3(transform.parent.localPosition.x, transform.parent.localPosition.y, transform.parent.forward);
+            transform.position = transform.parent.position;
       
         }
         if (dropped)

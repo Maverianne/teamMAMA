@@ -13,6 +13,7 @@ public class CharacterController2D : MonoBehaviour
 
     //setup for movement
     public CharacterController charControl;
+    public Animator anim;
     public float speed;
 
     //setup for gravity
@@ -22,21 +23,22 @@ public class CharacterController2D : MonoBehaviour
     //for fliping character
     public bool facingRight;
 
-
-    public float force;
     //for pick up and drop
     public bool pickUp, carrying, facingforward;
     public GameObject pickObj;
     public GameObject pickUpper;
     public Vector3 moveDirection;
-   
+    private void Start()
+    {
+        anim = charSprite.GetComponent<Animator>();
+    }
     private void Update()
     {
         Movement();
         Rotate();
         Flip();
         PickingObject();
-        //transform.LookAt(camTarget.transform);
+        MovementAnimations();
     }
     private void PickingObject()
     {
@@ -46,7 +48,7 @@ public class CharacterController2D : MonoBehaviour
             {
                 carrying = true;
                 pickObj.transform.parent = pickUpper.gameObject.transform;
-                pickObj.transform.rotation = Quaternion.Euler(pickUpper.transform.rotation.x, pickUpper.transform.rotation.y, pickUpper.transform.rotation.z);
+                pickObj.transform.localRotation = Quaternion.Euler(pickUpper.transform.localRotation.x, pickUpper.transform.localRotation.y, pickUpper.transform.localRotation.z);
             }
         }
         if (carrying)
@@ -76,16 +78,31 @@ public class CharacterController2D : MonoBehaviour
     private void Flip()
     {
         float horizontalVal = Input.GetAxis("Horizontal");
-        if((horizontalVal < 0 && facingRight) || (horizontalVal > 0 && !facingRight))
+        if ((horizontalVal < 0 && facingRight) || (horizontalVal > 0 && !facingRight))
         {
             facingRight = !facingRight;
             charSprite.transform.Rotate(new Vector3(0, 180, 0));
         }
-
+        float face;
         float forwardVal = Input.GetAxis("Vertical");
-        if ((forwardVal < 0 && facingforward) || (forwardVal > 0 && !facingforward))
+        if (forwardVal < 0 && facingforward)
         {
+            face = 1;
             facingforward = !facingforward;
+            float x = 0;
+            float y = 0;
+            float z = .1f;
+            pickUpper.transform.localPosition = new Vector3(x, y, z * face);
+            pickUpper.transform.Rotate(new Vector3(0, 180, 0));
+        }
+        else if (forwardVal > 0 && !facingforward)
+        {
+            face = -1;
+            facingforward = !facingforward;
+            float x = 0;
+            float y = 0;
+            float z = .1f;
+            pickUpper.transform.localPosition = new Vector3(x, y, z * face);
             pickUpper.transform.Rotate(new Vector3(0, 180, 0));
         }
     }
@@ -99,7 +116,6 @@ public class CharacterController2D : MonoBehaviour
 
     public void Movement()
     {
-
         //gravity
         if (charControl.isGrounded)
         {
@@ -127,5 +143,29 @@ public class CharacterController2D : MonoBehaviour
         moveDirection.y += verticalSpeed;
         //movement
         charControl.Move(moveDirection * Time.deltaTime);
+    }
+    public void MovementAnimations()
+    {
+        anim.SetFloat("Horizontal", Mathf.Abs(Input.GetAxis("Horizontal")));
+        anim.SetFloat("Vertical", Mathf.Abs(Input.GetAxis("Vertical")));
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            anim.SetTrigger("Back");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            anim.SetTrigger("Side");
+        }
+        //float x = Input.GetAxis("Horizontal");
+        //float y = Input.GetAxis("Vertical");
+
+        //if(y != 0 || x != 0)
+        //{
+        //    anim.SetBool("Walking", true);
+        //}
+        //if (y == 0 && x == 0)
+        //{
+        //    anim.SetBool("Walking", false);
+        //}
     }
 }
