@@ -38,7 +38,6 @@ public class CharacterController2D : MonoBehaviour
         Rotate();
         Flip();
         PickingObject();
-        MovementAnimations();
     }
     private void PickingObject()
     {
@@ -106,14 +105,12 @@ public class CharacterController2D : MonoBehaviour
             pickUpper.transform.Rotate(new Vector3(0, 180, 0));
         }
     }
-
     private void Rotate()
     {
         Vector3 targetVector = camTarget.transform.position - transform.position;
         float newYAngle = Mathf.Atan2(targetVector.x, targetVector.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, newYAngle, 0);
     }
-
     public void Movement()
     {
         //gravity
@@ -137,35 +134,17 @@ public class CharacterController2D : MonoBehaviour
         
         moveDirection = (x * camTrans.right + z * camForward).normalized;
 
+        anim.SetFloat("horizontal", moveDirection.x);
+        anim.SetFloat("vertical", moveDirection.z);
+        Debug.Log(moveDirection.z);
+        bool isIdle = moveDirection.z == 0 && moveDirection.x == 0;
+        anim.SetBool("isMoving", !isIdle);
+
         //direction
         moveDirection *= speed;
         //gravity
         moveDirection.y += verticalSpeed;
         //movement
         charControl.Move(moveDirection * Time.deltaTime);
-    }
-    public void MovementAnimations()
-    {
-        anim.SetFloat("Horizontal", Mathf.Abs(Input.GetAxis("Horizontal")));
-        anim.SetFloat("Vertical", Mathf.Abs(Input.GetAxis("Vertical")));
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            anim.SetTrigger("Back");
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            anim.SetTrigger("Side");
-        }
-        //float x = Input.GetAxis("Horizontal");
-        //float y = Input.GetAxis("Vertical");
-
-        //if(y != 0 || x != 0)
-        //{
-        //    anim.SetBool("Walking", true);
-        //}
-        //if (y == 0 && x == 0)
-        //{
-        //    anim.SetBool("Walking", false);
-        //}
     }
 }
