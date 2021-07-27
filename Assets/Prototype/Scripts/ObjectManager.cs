@@ -13,13 +13,14 @@ public class ObjectManager : MonoBehaviour
     }
     private void Update()
     {
-        giveOrder();
+        //giveOrder();
+
     }
     void giveOrder()
     {
         if (numValue < worldTargets.Length)
         {
-            worldTargets[numValue].GetComponent<TargetController>().myNumber = numValue;
+           // worldTargets[numValue].GetComponent<TargetController>().myNumber = numValue;
             numValue++;
         }
     }

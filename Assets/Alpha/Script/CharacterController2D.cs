@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour
 {
+    public static CharacterController2D instance; 
+
     public Camera camTarget;
     public GameObject charSprite;
     public Transform camTrans;
@@ -28,6 +30,14 @@ public class CharacterController2D : MonoBehaviour
     public GameObject pickObj;
     public GameObject pickUpper;
     public Vector3 moveDirection;
+
+    //for collecting
+    public bool collectItem;
+    public GameObject collect;
+    private void Awake()
+    {
+        instance = this; 
+    }
     private void Start()
     {
         anim = charSprite.GetComponent<Animator>();
@@ -38,25 +48,48 @@ public class CharacterController2D : MonoBehaviour
         Rotate();
         Flip();
         PickingObject();
+        if (Input.GetKeyDown("space") && collectItem == true)
+        {
+            collect.gameObject.GetComponent<TargetController>().StartShake();
+            CollectObjects.instance.currentItems = CollectObjects.instance.currentItems + 1;
+            collectItem = false;
+        }
+        
     }
     private void PickingObject()
     {
         if (pickUp && pickObj.GetComponent<PushObject>().available)
         {
-            if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown("space"))
             {
-                carrying = true;
+                StartCoroutine("CarryingSomething");
                 pickObj.transform.parent = pickUpper.gameObject.transform;
                 pickObj.transform.localRotation = Quaternion.Euler(pickUpper.transform.localRotation.x, pickUpper.transform.localRotation.y, pickUpper.transform.localRotation.z);
             }
         }
         if (carrying)
-            if (Input.GetKeyDown(KeyCode.C))
+        {
+            speed = 1f;
+            if (Input.GetKeyDown("space") && pickObj.GetComponent<PushObject>().noDrop == false)
             {
                 pickObj.GetComponent<PushObject>().dropped = true;
                 carrying = false;
-                pickObj.transform.parent = null;
+                //pickObj.transform.parent = null;
             }
+            else if(Input.GetKeyDown("space") && pickObj.GetComponent<PushObject>().noDrop == true)
+            {
+                carrying = false;
+            }
+        }
+        else
+        {
+            speed = 2f;
+        }
+    }
+    IEnumerator CarryingSomething()
+    {
+        yield return new WaitForSeconds(.5f);
+        carrying = true;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -65,13 +98,23 @@ public class CharacterController2D : MonoBehaviour
             pickObj = other.gameObject;
             pickUp = true;
         }
+        if(other.tag == "collectable" && !carrying && !pickUp) 
+        {
+            collectItem = true;
+            collect = other.gameObject;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "pushableObject" && !carrying)
+        if (other.tag == "pushableObject" && !carrying)
         {
             pickObj = null;
             pickUp = false;
+        }
+        if (other.tag == "collectable")
+        {
+            collectItem = false;
+            collect = null;
         }
     }
     private void Flip()
@@ -136,7 +179,7 @@ public class CharacterController2D : MonoBehaviour
 
         anim.SetFloat("horizontal", moveDirection.x);
         anim.SetFloat("vertical", moveDirection.z);
-        Debug.Log(moveDirection.z);
+
         bool isIdle = moveDirection.z == 0 && moveDirection.x == 0;
         anim.SetBool("isMoving", !isIdle);
 

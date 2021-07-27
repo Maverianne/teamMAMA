@@ -8,6 +8,7 @@ TagManager:
   - PickUp
   - bridge
   - pushableObject
+  - collectable
   layers:
   - Default
   - TransparentFX

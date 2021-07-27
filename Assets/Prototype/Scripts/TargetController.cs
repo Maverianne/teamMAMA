@@ -5,21 +5,21 @@ using UnityEngine;
 public class TargetController : MonoBehaviour
 {
 
-    public int myNumber;
-    private Material objMaterial, currentMaterial;
-    private Color currentColor;
-    public bool highlighted;
+    //public int myNumber;
+    //public bool highlighted;
+    public bool canPick;
     private void Start()
     {
-        objMaterial = gameObject.GetComponent<MeshRenderer>().material;
-        currentColor = gameObject.GetComponent<MeshRenderer>().material.color;
+        //objMaterial = gameObject.GetComponent<MeshRenderer>().material;
+        //currentColor = gameObject.GetComponent<MeshRenderer>().material.color;
     }
     public void StartShake()
     {
-        StartCoroutine(Shake(.5f, 3f));
+        StartCoroutine(Shake(.5f, 1f));
     }
     public IEnumerator Shake(float duration, float magnitude)
     {
+        CharacterController2D.instance.collectItem = false;
         Vector3 startPos = transform.localPosition;
         float elapsed = 0.0f;
          while(elapsed < duration)
@@ -36,29 +36,29 @@ public class TargetController : MonoBehaviour
         gameObject.SetActive(false);
         transform.localPosition = startPos;
     }
-    private void Update()
-    {
-        if (highlighted && myNumber == RaycastPick.instance.orderValue)
-        {
-            objMaterial.color = Color.white;
-        }
-        else if(!highlighted && myNumber == RaycastPick.instance.orderValue)
-        {
-            objMaterial.color = currentColor;
-        }
-    }
+    //private void Update()
+    //{
+    //    if (highlighted && myNumber == RaycastPick.instance.orderValue)
+    //    {
+    //        objMaterial.color = Color.white;
+    //    }
+    //    else if(!highlighted && myNumber == RaycastPick.instance.orderValue)
+    //    {
+    //        objMaterial.color = currentColor;
+    //    }
+    //}
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-            highlighted = true; 
+            canPick = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
-            highlighted = false;
+            canPick = false;
         }
     }
 }

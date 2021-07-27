@@ -47,15 +47,9 @@ public class RaycastPick : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, rayDistance, targetMask))
             {
-                if (hit.collider.gameObject.GetComponent<TargetController>().myNumber == orderValue)
-                {
-                    hit.collider.gameObject.GetComponent<TargetController>().StartShake();
-                    orderValue++;
-                }
-                else
-                {
-                    Debug.Log("that is wrong");
-                }
+                hit.collider.gameObject.GetComponent<TargetController>().StartShake();
+                CollectObjects.instance.currentItems++;
+                orderValue++;
             }
         }
     }
