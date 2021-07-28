@@ -9,6 +9,8 @@ TagManager:
   - bridge
   - pushableObject
   - collectable
+  - pot
+  - home
   layers:
   - Default
   - TransparentFX

@@ -51,10 +51,15 @@ public class CharacterController2D : MonoBehaviour
         if (Input.GetKeyDown("space") && collectItem == true)
         {
             collect.gameObject.GetComponent<TargetController>().StartShake();
-            CollectObjects.instance.currentItems = CollectObjects.instance.currentItems + 1;
+            CollectObjects.instance.currentItems++;
             collectItem = false;
+            Debug.Log(CollectObjects.instance.currentItems);
         }
-        
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+
     }
     private void PickingObject()
     {
@@ -67,21 +72,25 @@ public class CharacterController2D : MonoBehaviour
                 pickObj.transform.localRotation = Quaternion.Euler(pickUpper.transform.localRotation.x, pickUpper.transform.localRotation.y, pickUpper.transform.localRotation.z);
             }
         }
-        if (carrying)
+        if (carrying && pickObj.GetComponent<PushObject>().noDrop == false)
         {
-            speed = 1f;
-            if (Input.GetKeyDown("space") && pickObj.GetComponent<PushObject>().noDrop == false)
+            speed = 1.5f;
+            if (Input.GetKeyDown("space"))
             {
                 pickObj.GetComponent<PushObject>().dropped = true;
                 carrying = false;
-                //pickObj.transform.parent = null;
-            }
-            else if(Input.GetKeyDown("space") && pickObj.GetComponent<PushObject>().noDrop == true)
-            {
-                carrying = false;
             }
         }
-        else
+        else if (carrying && pickObj.GetComponent<PushObject>().noDrop == true)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                pickObj.GetComponent<PushObject>().PlacedHome();
+                carrying = false;
+                speed = 2f;
+            }
+        }
+        else if (carrying)
         {
             speed = 2f;
         }
@@ -103,6 +112,10 @@ public class CharacterController2D : MonoBehaviour
             collectItem = true;
             collect = other.gameObject;
         }
+        if (other.tag == "home" && carrying)
+        {
+            pickObj.GetComponent<PushObject>().near = true;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -115,6 +128,10 @@ public class CharacterController2D : MonoBehaviour
         {
             collectItem = false;
             collect = null;
+        }
+        if (other.tag == "home" && carrying)
+        {
+            pickObj.GetComponent<PushObject>().near = false;
         }
     }
     private void Flip()

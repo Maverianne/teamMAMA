@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Alpha/Menu.unity
-    guid: 5027669166fe60f4d990d547101a857f
-  - enabled: 1
     path: Assets/Alpha/Mariana.unity
     guid: b32ad2f987f047b4f91dd2b017d320b4
   m_configObjects: {}

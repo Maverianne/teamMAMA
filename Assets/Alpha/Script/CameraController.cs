@@ -16,11 +16,11 @@ public class CameraController : MonoBehaviour
     {
         //transform.LookAt(target);
 
-        if (Input.GetKeyDown(KeyCode.E) && !rotating)
+        if (Input.GetKeyDown(KeyCode.Q) && !rotating)
         {
             targetAngle -= 90f;
         }
-        if (Input.GetKeyDown(KeyCode.Q) && !rotating)
+        if (Input.GetKeyDown(KeyCode.E) && !rotating)
         {
             targetAngle += 90f;
         }

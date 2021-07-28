@@ -15,7 +15,7 @@ public class TargetController : MonoBehaviour
     }
     public void StartShake()
     {
-        StartCoroutine(Shake(.5f, 1f));
+        StartCoroutine(Shake(.5f, .5f));
     }
     public IEnumerator Shake(float duration, float magnitude)
     {
@@ -33,8 +33,10 @@ public class TargetController : MonoBehaviour
 
             yield return null;
         }
-        gameObject.SetActive(false);
+
+        //gameObject.SetActive(false);
         transform.localPosition = startPos;
+        Destroy(gameObject);
     }
     //private void Update()
     //{
