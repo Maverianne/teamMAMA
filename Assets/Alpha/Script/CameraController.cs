@@ -11,18 +11,20 @@ public class CameraController : MonoBehaviour
     const float rotationAmount = 1f;
 
     public bool rotating;
+    public float stopping = 70f;
 
     private void Update()
     {
-        //transform.LookAt(target);
 
-        if (Input.GetKeyDown(KeyCode.Q) && !rotating)
+        if (Input.GetKeyDown(KeyCode.Q) && !rotating && stopping != -70f)
         {
-            targetAngle -= 90f;
+            targetAngle -= 70f;
+            stopping = -70f;
         }
-        if (Input.GetKeyDown(KeyCode.E) && !rotating)
+        if (Input.GetKeyDown(KeyCode.E) && !rotating && stopping != 70f)
         {
-            targetAngle += 90f;
+            targetAngle += 70f;
+            stopping = 70f;
         }
         if(targetAngle != 0)
         {

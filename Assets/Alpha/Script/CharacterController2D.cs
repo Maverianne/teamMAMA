@@ -12,10 +12,8 @@ public class CharacterController2D : MonoBehaviour
     public Transform camTrans;
     public Vector3 camForward;
 
-
     //setup for movement
     public CharacterController charControl;
-    public Animator anim;
     public float speed;
 
     //setup for gravity
@@ -34,6 +32,11 @@ public class CharacterController2D : MonoBehaviour
     //for collecting
     public bool collectItem;
     public GameObject collect;
+
+    //for animation 
+    public Animator anim;
+
+
     private void Awake()
     {
         instance = this; 
@@ -41,6 +44,7 @@ public class CharacterController2D : MonoBehaviour
     private void Start()
     {
         anim = charSprite.GetComponent<Animator>();
+        anim.SetBool("facingFront", true);
     }
     private void Update()
     {
@@ -48,6 +52,7 @@ public class CharacterController2D : MonoBehaviour
         Rotate();
         Flip();
         PickingObject();
+        Animations();
         if (Input.GetKeyDown("space") && collectItem == true)
         {
             collect.gameObject.GetComponent<TargetController>().StartShake();
@@ -194,17 +199,31 @@ public class CharacterController2D : MonoBehaviour
         
         moveDirection = (x * camTrans.right + z * camForward).normalized;
 
-        anim.SetFloat("horizontal", moveDirection.x);
-        anim.SetFloat("vertical", moveDirection.z);
-
-        bool isIdle = moveDirection.z == 0 && moveDirection.x == 0;
-        anim.SetBool("isMoving", !isIdle);
-
         //direction
         moveDirection *= speed;
         //gravity
         moveDirection.y += verticalSpeed;
         //movement
         charControl.Move(moveDirection * Time.deltaTime);
+    }
+    private void Animations()
+    {
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            anim.SetBool("facingFront", false);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            anim.SetBool("facingFront", true);
+        }
+
     }
 }
