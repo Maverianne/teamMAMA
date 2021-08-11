@@ -32,37 +32,5 @@ public class CameraRotation : MonoBehaviour
         {
             transform.Rotate(Vector3.down * Time.deltaTime * speed, Space.Self);
         }
-
-
-        //if (movingRight)
-        //{
-        //    if (Mathf.Round(transform.eulerAngles.y) == currentAngle || Mathf.Round(transform.eulerAngles.y) <= angle + 90 )
-        //    {
-        //        transform.Rotate(Vector3.up * Time.deltaTime * speed, Space.Self);
-        //        currentAngle = angle;
-        //    }
-        //    else if (Mathf.Round(transform.eulerAngles.y) == 90 || Mathf.Round(transform.eulerAngles.y) <= angle + 90)
-        //    {
-        //        transform.Rotate(Vector3.up * Time.deltaTime * speed, Space.Self);
-        //        currentAngle = angle;
-        //    }
-
-        //    else if (Mathf.Round(transform.eulerAngles.y) == 180 || Mathf.Round(transform.eulerAngles.y) <= angle + 90)
-        //    {
-        //        transform.Rotate(Vector3.up * Time.deltaTime * speed, Space.Self);
-        //    }
-        //    else if (Mathf.Round(transform.eulerAngles.y) == 270 || Mathf.Round(transform.eulerAngles.y) <= angle + 90)
-        //    {
-        //        transform.Rotate(Vector3.up * Time.deltaTime * speed, Space.Self);
-        //    }
-        //}
-        //if(!movingRight && !movingLeft)
-        //{
-        //    currentPos.rotation = transform.rotation;
-        //}
-        //transform.Rotate(new Vector3(0, 1, 0));
-        //transform.Rotate(new Vector3(0, 0, 1));
-
-        //and if (Mathf.Round(transform.eulerAngles.z) == 180) { transform.Rotate(new Vector3(0, 0, -180)); }
     }
 }

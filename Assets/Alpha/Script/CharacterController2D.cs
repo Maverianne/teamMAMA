@@ -208,7 +208,9 @@ public class CharacterController2D : MonoBehaviour
     }
     private void Animations()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        if (x != 0 || z != 0)
         {
             anim.SetBool("isMoving", true);
         }
@@ -216,11 +218,11 @@ public class CharacterController2D : MonoBehaviour
         {
             anim.SetBool("isMoving", false);
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             anim.SetBool("facingFront", false);
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             anim.SetBool("facingFront", true);
         }
