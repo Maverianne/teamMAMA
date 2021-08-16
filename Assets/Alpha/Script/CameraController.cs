@@ -36,7 +36,6 @@ public class CameraController : MonoBehaviour
             rotating = false;
         }
     }
-
     private void Rotate()
     {
         float step = Time.deltaTime * 10;

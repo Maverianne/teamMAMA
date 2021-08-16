@@ -50,19 +50,16 @@ public class CharacterController2D : MonoBehaviour
     {
         Movement();
         Rotate();
-        Flip();
+ 
         PickingObject();
-        Animations();
+        if(speed != 0) { 
+            Animations();
+            Flip();
+        }
         if (Input.GetKeyDown("space") && collectItem == true)
         {
             collect.gameObject.GetComponent<TargetController>().StartShake();
-            CollectObjects.instance.currentItems++;
             collectItem = false;
-            Debug.Log(CollectObjects.instance.currentItems);
-        }
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
         }
 
     }

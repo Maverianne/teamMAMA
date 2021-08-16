@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class TargetController : MonoBehaviour
 {
-
-    //public int myNumber;
-    //public bool highlighted;
     public bool canPick;
-    private void Start()
-    {
-        //objMaterial = gameObject.GetComponent<MeshRenderer>().material;
-        //currentColor = gameObject.GetComponent<MeshRenderer>().material.color;
-    }
+    public GameObject myParent; 
     public void StartShake()
     {
+        myParent.GetComponent<CollectObjects>().currentItems++;
         StartCoroutine(Shake(.5f, .5f));
     }
     public IEnumerator Shake(float duration, float magnitude)
@@ -38,17 +32,6 @@ public class TargetController : MonoBehaviour
         transform.localPosition = startPos;
         Destroy(gameObject);
     }
-    //private void Update()
-    //{
-    //    if (highlighted && myNumber == RaycastPick.instance.orderValue)
-    //    {
-    //        objMaterial.color = Color.white;
-    //    }
-    //    else if(!highlighted && myNumber == RaycastPick.instance.orderValue)
-    //    {
-    //        objMaterial.color = currentColor;
-    //    }
-    //}
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

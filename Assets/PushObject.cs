@@ -13,7 +13,6 @@ public class PushObject : MonoBehaviour
     public GameObject fire;
 
     public float speed = 2f; 
-
     private void Awake()
     {
         instance = this;         

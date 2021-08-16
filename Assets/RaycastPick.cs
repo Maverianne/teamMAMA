@@ -48,7 +48,6 @@ public class RaycastPick : MonoBehaviour
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, rayDistance, targetMask))
             {
                 hit.collider.gameObject.GetComponent<TargetController>().StartShake();
-                CollectObjects.instance.currentItems++;
                 orderValue++;
             }
         }

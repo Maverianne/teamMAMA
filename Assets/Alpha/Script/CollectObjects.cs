@@ -5,44 +5,142 @@ using UnityEngine.UI;
 using TMPro;
 public class CollectObjects : MonoBehaviour
 {
-    public int itemsToCollect;
-    public int currentItems;
     public static CollectObjects instance;
-    public GameObject setItems;
-    public bool allItemsCollected, playerPlacing;
-    public TMPro.TextMeshProUGUI score;
-    private void Awake()
+
+    public int itemsToCollect, currentItems, collectClue;
+    public GameObject setItems, inventoryUI, bubbleUI;
+    public bool allItemsCollected, playerNear, showBubble;
+    public TMPro.TextMeshProUGUI bubbleNumber, inventoryNumber;
+
+    //forDialogue
+    enum collection
     {
-        instance = this; 
+        MUSHROOM,
+        FIRESTICKS
+    }
+    private collection myCollection;
+    public int dialogueNumber;
+    public string text;
+    public string collectionType;
+
+
+    private void Start()
+    {
+        inventoryUI.SetActive(false);
+        bubbleUI.SetActive(false);
+        switch (collectionType)
+        {
+            case "mushroom" :
+                myCollection = collection.MUSHROOM;
+                break;
+            case "firesticks":
+                myCollection = collection.FIRESTICKS;
+                break; ;
+        }
     }
     private void Update()
     {
-        score.SetText(currentItems + "/5");
+
+        DialogueManager();
+        if (showBubble)
+        {
+            BubbleActive();
+        }
+        if(playerNear && currentItems == 0)
+        {
+            dialogueNumber = 1;
+
+        }
+        else if (playerNear && currentItems < 5 && currentItems != 0)
+        {
+            dialogueNumber = 2;
+        }
+        if (Input.GetKeyDown("space") && playerNear && !allItemsCollected)
+        {
+            LevelDialogueManager.instance.DialoguePromt(text);
+            LevelDialogueManager.instance.talking = true;
+            Debug.Log("Dialogue");
+            showBubble = true;
+        }
+
         allItemsCollected = currentItems >= itemsToCollect;
-        if (allItemsCollected && playerPlacing == true && Input.GetKeyDown("space") && CharacterController2D.instance.carrying == false) 
+        if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/) 
         {
             setItems.SetActive(true);
             PushObject.instance.canBeHome = true;
-
+            bubbleUI.GetComponent<CollectionCounter>().Animation();
+            StartCoroutine("CloseBubble");
         }
-        if(allItemsCollected == true)
+     
+        ActivateInventory();
+    }
+    private void DialogueManager()
+    {
+        if (myCollection == collection.MUSHROOM)
         {
-            score.SetText("5/5");
+            switch (dialogueNumber)
+            {
+                case 1:
+                    text = "I should look for something to cook";
+                    break;
+                case 2:
+                    text = "I need more";
+                    break;
+            }
+        }
+        if (myCollection == collection.FIRESTICKS)
+        {
+            switch (dialogueNumber)
+            {
+                case 1:
+                    text = "I need something to start the fire";
+                    break;
+                case 2:
+                    text = "I need more";
+                    break;
+            }
         }
     }
-
+    private void BubbleActive()
+    {
+        bubbleUI.SetActive(true);
+        bubbleNumber.SetText(currentItems + "/5");
+        if (allItemsCollected == true)
+        {
+            bubbleNumber.SetText("5/5");
+        }
+    }
+    private void ActivateInventory()
+    {
+        if (currentItems >= 1)
+        {
+            inventoryUI.SetActive(true);
+            inventoryNumber.SetText(currentItems + "");
+        }
+        if (allItemsCollected)
+        {
+            inventoryNumber.SetText("5");
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            playerPlacing = true; 
+            playerNear = true; 
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
-            playerPlacing = false;
+            playerNear = false;
         }
+    }
+    IEnumerator CloseBubble()
+    {
+        showBubble = false;
+        yield return new WaitForSeconds(1f);
+        bubbleUI = null;
+        bubbleNumber = null;
     }
 }
