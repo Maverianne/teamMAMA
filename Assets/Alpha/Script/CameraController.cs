@@ -7,8 +7,8 @@ public class CameraController : MonoBehaviour
 {
 
     public GameObject targetObj;
-    private float targetAngle = 0;
-    const float rotationAmount = 2f;
+    public float targetAngle = 0;
+    public float rotationAmount = 10f;
 
     public bool rotating;
     public float stopping = 70f;
@@ -39,15 +39,23 @@ public class CameraController : MonoBehaviour
 
     private void Rotate()
     {
+        float step = Time.deltaTime * 10;
         if (targetAngle > 0)
         {
-            transform.RotateAround(targetObj.transform.position, Vector3.up, -rotationAmount);
-            targetAngle -= rotationAmount;
+            
+            transform.RotateAround(targetObj.transform.position, Vector3.up,  Mathf.Round(-rotationAmount * step));
+            targetAngle -= Mathf.Round(rotationAmount * step);
+            if (targetAngle < 0)
+                targetAngle = 0;
+
         }
         else if (targetAngle < 0)
         {
-            transform.RotateAround(targetObj.transform.position, Vector3.up, rotationAmount);
-            targetAngle += rotationAmount;
+            transform.RotateAround(targetObj.transform.position, Vector3.up, Mathf.Round(rotationAmount * step));
+            targetAngle += Mathf.Round(rotationAmount * step);
+
+            if (targetAngle > 0)
+                targetAngle = 0;
         }
     }
 }

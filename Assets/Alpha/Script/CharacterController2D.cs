@@ -188,8 +188,8 @@ public class CharacterController2D : MonoBehaviour
             verticalSpeed -= gravity * Time.deltaTime;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
 
         camTrans = camTarget.transform;
 
@@ -208,8 +208,8 @@ public class CharacterController2D : MonoBehaviour
     }
     private void Animations()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
         if (x != 0 || z != 0)
         {
             anim.SetBool("isMoving", true);
@@ -217,7 +217,7 @@ public class CharacterController2D : MonoBehaviour
         else
         {
             anim.SetBool("isMoving", false);
-        }
+        } 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             anim.SetBool("facingFront", false);
