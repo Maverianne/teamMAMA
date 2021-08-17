@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 60da048a6b5e22144831a3b6516030ec
+guid: ff988bb5407b9f846a7fdc5719770900
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 9c9acc879e9fab24bb874228462f1b6f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: WaterMAT
-    second: {fileID: 2100000, guid: 1325e444d7280a541a675b14df6fef29, type: 2}
+      name: Material.001
+    second: {fileID: 2100000, guid: 4e8c3d9da289e144983e17861271ba80, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -71,7 +66,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 180
+    normalSmoothAngle: 85
     normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
