@@ -27,6 +27,7 @@ public class LevelDialogueManager : MonoBehaviour
         if (talking)
         {
             CharacterController2D.instance.speed = 0;
+            CharacterController2D.instance.anim.SetBool("isMoving", false);
             dialogueUI.SetActive(true);
             StartCoroutine("EndDialogue");
    

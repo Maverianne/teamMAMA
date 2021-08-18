@@ -67,12 +67,16 @@ public class CollectObjects : MonoBehaviour
         if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/) 
         {
             setItems.SetActive(true);
-            PushObject.instance.canBeHome = true;
+          //  PushObject.instance.canBeHome = true;
             bubbleUI.GetComponent<CollectionCounter>().Animation();
             StartCoroutine("CloseBubble");
         }
-     
-        ActivateInventory();
+        else if (allItemsCollected && playerNear && Input.GetKeyDown("space") && !showBubble/*&& CharacterController2D.instance.carrying == false*/)
+        {
+            setItems.SetActive(true);
+        }
+
+            ActivateInventory();
     }
     private void DialogueManager()
     {

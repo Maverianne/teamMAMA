@@ -18,7 +18,7 @@ public class TargetController : MonoBehaviour
         float elapsed = 0.0f;
          while(elapsed < duration)
         {
-
+            canPick = false;
             Vector3 newPos = Random.insideUnitSphere * (Time.deltaTime * magnitude);
 
             transform.localPosition = new Vector3(newPos.x, startPos.y, startPos.z);
