@@ -16,7 +16,7 @@ public class PuzzleStepManager : MonoBehaviour
     private void Start()
     { 
         //Opening scene 
-        text = "I'm a little hungry";
+        text = "After hiking for so long, I got really hungry.";
         StartCoroutine("Dialogue");
     }
     public void Update()
@@ -24,21 +24,21 @@ public class PuzzleStepManager : MonoBehaviour
         if(steps == 2 && !step1)
         {
             //after you add the fire sticks
-            text = "Oh! I remember Grandma's old mushroom soup";
+            text = "I then remembered the mushroom soup my g'ma used to make.";
             StartCoroutine("Dialogue");
             step1 = true;
         }
         if (steps == 3 && !step2)
         {
             //once you put down the pot
-            text = "I need something to cook";
+            text = "The hardest part was just finding the mushrooms...";
             StartCoroutine("Dialogue");
             step2 = true;
         }
         if (steps == 4 && !step3)
         {
             //the finale text!
-            text = "Just like grandma used to make it";
+            text = "But the soup actually turned out well! I'm... actually really proud...";
             StartCoroutine("LastDialogue");
 
             step3 = true;

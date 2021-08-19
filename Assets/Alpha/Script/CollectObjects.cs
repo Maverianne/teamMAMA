@@ -116,7 +116,7 @@ public class CollectObjects : MonoBehaviour
     private void FirestickStep()
     {
         //First time you walk up to the firepit to prompt collecting sticks
-        text = "I need something to start the fire";
+        text = "I think I need something to start the fire with...";
         if (Input.GetKeyDown("space") && playerNear && !allItemsCollected && !locked)
         {
             LevelDialogueManager.instance.DialoguePromt(text);

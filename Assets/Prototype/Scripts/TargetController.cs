@@ -31,14 +31,14 @@ public class TargetController : MonoBehaviour
         {
             //if the pot is locked
             shaking = .2f;
-            lockedDialogue = "I need something to cook this in...";
+            lockedDialogue = "I think I need something to heat this up with...";
         }
 
         else if (myStep == 3)
         {
             //if the mushrooms are locked
             shaking = .3f;
-            lockedDialogue = "I need something to heat this up...";
+            lockedDialogue = "I think I need something to cook this in...";
         }
     }
     public void Picked()
