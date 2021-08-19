@@ -5,41 +5,42 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour
 {
-    public static CharacterController2D instance; 
+    public static CharacterController2D instance;
 
-    public Camera camTarget;
-    public GameObject charSprite;
-    public Transform camTrans;
-    public Vector3 camForward;
+    [Header("Movement")]
+        public Camera camTarget;
+        public Vector3 camForward;
+        public CharacterController charControl;
+        public Transform camTrans;
+        public Vector3 moveDirection;
+        public float speed;
 
-    //setup for movement
-    public CharacterController charControl;
-    public float speed;
+    [Header("Gravity")]
+        public float gravity;
+        private float verticalSpeed;
 
-    //setup for gravity
-    public float gravity;
-    public float verticalSpeed;
+    [Header("Flip the Character")]
+        public bool facingRight;
+        public bool facingforward;
+        public GameObject charSprite;
 
-    //for fliping character
-    public bool facingRight;
+    [Header("Picking and Dropping")]
+        public bool carrying;
+        public GameObject pickObj;
+        public GameObject pickUpper;
+        private bool pickUp;
 
-    //for pick up and drop
-    public bool pickUp, carrying, facingforward;
-    public GameObject pickObj;
-    public GameObject pickUpper;
-    public Vector3 moveDirection;
+    [Header("For Collecting")]
+        public bool collectItem;
+        public GameObject collect;
 
-    //for collecting
-    public bool collectItem;
-    public GameObject collect;
-
-    //for animation 
-    public Animator anim;
+    [Header("For Animation")]
+        public Animator anim;
 
 
     private void Awake()
     {
-        instance = this; 
+        instance = this;
     }
     private void Start()
     {
@@ -56,10 +57,14 @@ public class CharacterController2D : MonoBehaviour
             Animations();
             Flip();
         }
-        if (Input.GetKeyDown("space") && collectItem == true)
+        if (Input.GetKeyDown("space") && collectItem == true && LevelDialogueManager.instance.talking == false)
         {
-            collect.gameObject.GetComponent<TargetController>().StartShake();
+            collect.gameObject.GetComponent<TargetController>().Picked();
             collectItem = false;
+        }
+        if(!collectItem)
+        {
+            collect = null;
         }
 
     }

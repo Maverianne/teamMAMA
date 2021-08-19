@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Alpha/Mariana.unity
-    guid: b32ad2f987f047b4f91dd2b017d320b4
+    path: Assets/Final Prototype Level - BETA/GameLevel.unity
+    guid: 633329e714415c54d880941398f7c361
   m_configObjects: {}

@@ -7,128 +7,231 @@ public class CollectObjects : MonoBehaviour
 {
     public static CollectObjects instance;
 
-    public int itemsToCollect, currentItems, collectClue;
-    public GameObject setItems, inventoryUI, bubbleUI;
-    public bool allItemsCollected, playerNear, showBubble;
-    public TMPro.TextMeshProUGUI bubbleNumber, inventoryNumber;
 
-    //forDialogue
-    enum collection
-    {
-        MUSHROOM,
-        FIRESTICKS
-    }
-    private collection myCollection;
-    public int dialogueNumber;
+    [Header("Collection Parameters")]
+    public int currentItems;
+ 
+    private bool allItemsCollected;
+    private bool playerNear;
+
+    [Header("Firestick Bubble Counter UI")]
+    public GameObject f_placedObjects;
+    public int f_itemsToCollect;
+    public GameObject f_bubbleUI;
+    public TMPro.TextMeshProUGUI f_bubbleNumber;
+    private bool showBubble;
+
+    [Header("Pot Parameters")]
+    public int p_itemsToCollect;
+    public GameObject p_placedObjects;
+    public GameObject p_bubbleUI;
+    public TMPro.TextMeshProUGUI p_bubbleNumber;
+
+    [Header("Mushroom Parameters")]
+    public int m_itemsToCollect;
+    public GameObject m_bubbleUI;
+    public TMPro.TextMeshProUGUI m_bubbleNumber;
+
+    //[Header("Inventory")]
+    //public TMPro.TextMeshProUGUI inventoryNumber;
+    //public GameObject inventoryUI;
+
+    [Header("Dialogue")]
     public string text;
+    private int dialogueNumber;
     public string collectionType;
+    public string lockedDialogue;
+    public string lookingDialogue;
 
+
+    [Header("For Steps")]
+    public int stepNumber;
+    public bool locked;
+
+    ////ENUM for dialogue
+    //    enum collection
+    //    {
+    //        MUSHROOM,
+    //        FIRESTICKS,
+    //        POT
+    //    }
+    //    private collection myCollection;
 
     private void Start()
     {
-        inventoryUI.SetActive(false);
-        bubbleUI.SetActive(false);
-        switch (collectionType)
-        {
-            case "mushroom" :
-                myCollection = collection.MUSHROOM;
-                break;
-            case "firesticks":
-                myCollection = collection.FIRESTICKS;
-                break; ;
-        }
+        //inventoryUI.SetActive(false);
+        f_bubbleUI.SetActive(false);
+        m_bubbleUI.SetActive(false);
+        p_bubbleUI.SetActive(false);
+
+        p_placedObjects.SetActive(false);
+        f_placedObjects.SetActive(false);
+        
+        //switch (collectionType)
+        //{
+        //    case "mushroom" :
+        //        myCollection = collection.MUSHROOM;
+        //        break;
+        //    case "firesticks":
+        //        myCollection = collection.FIRESTICKS;
+        //        break; 
+        //    case "pot":
+        //        myCollection = collection.FIRESTICKS;
+        //        break;
+        //}
     }
     private void Update()
     {
+        //DialogueManager();
+        StepManager();
 
-        DialogueManager();
-        if (showBubble)
+    }
+    //private void DialogueManager()
+    //{
+    //    switch (dialogueNumber)
+    //    {
+    //        case 1:
+    //            text = lockedDialogue;
+    //            break;
+    //        case 2:
+    //            text = lookingDialogue;
+    //            break;
+    //    }
+    //}
+    private void StepManager()
+    {
+        if(stepNumber == 1)
         {
-            BubbleActive();
+            FirestickStep();
         }
-        if(playerNear && currentItems == 0)
+        else if (stepNumber == 2)
         {
-            dialogueNumber = 1;
-
+            PotStep();
         }
-        else if (playerNear && currentItems < 5 && currentItems != 0)
+        else if(stepNumber == 3)
         {
-            dialogueNumber = 2;
+            MushroomsStep();
         }
-        if (Input.GetKeyDown("space") && playerNear && !allItemsCollected)
+    }
+    private void FirestickStep()
+    {
+        //firesticks
+        text = "I need something to start the fire";
+        if (Input.GetKeyDown("space") && playerNear && !allItemsCollected && !locked)
         {
             LevelDialogueManager.instance.DialoguePromt(text);
             LevelDialogueManager.instance.talking = true;
-            Debug.Log("Dialogue");
             showBubble = true;
         }
-
-        allItemsCollected = currentItems >= itemsToCollect;
-        if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/) 
+        if (showBubble)
         {
-            setItems.SetActive(true);
-          //  PushObject.instance.canBeHome = true;
-            bubbleUI.GetComponent<CollectionCounter>().Animation();
-            StartCoroutine("CloseBubble");
+            f_bubbleUI.SetActive(true);
+            f_bubbleNumber.SetText(currentItems + "/5");
+            if (allItemsCollected == true)
+            {
+                f_bubbleNumber.SetText("5/5");
+            }
+        }
+        allItemsCollected = currentItems >= f_itemsToCollect;
+        if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/)
+        {
+            f_placedObjects.SetActive(true);
+            //  PushObject.instance.canBeHome = true;
+            f_bubbleUI.GetComponent<CollectionCounter>().Animation();
+            StartCoroutine("CloseFireBubble");
+            playerNear = false;
+            PuzzleStepManager.intance.steps++;
+            currentItems = 0;
+            stepNumber++;
         }
         else if (allItemsCollected && playerNear && Input.GetKeyDown("space") && !showBubble/*&& CharacterController2D.instance.carrying == false*/)
         {
-            setItems.SetActive(true);
+            f_placedObjects.SetActive(true);
+            PuzzleStepManager.intance.steps++;
+            currentItems = 0;
+            playerNear = false;
+            stepNumber++;
         }
+    }
+    private void PotStep()
+    {
+        if (Input.GetKeyDown("space") && playerNear && !allItemsCollected && !locked)
+        {
+            showBubble = true;
+        }
+        if (showBubble)
+        {
+            p_bubbleUI.SetActive(true);
+            p_bubbleNumber.SetText(currentItems + "/1");
+            if (allItemsCollected == true)
+            {
+                p_bubbleNumber.SetText("1/1");
+            }
+        }
+        allItemsCollected = currentItems >= p_itemsToCollect;
+        if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/)
+        {
+            p_placedObjects.SetActive(true);
+            playerNear = false;
+            p_bubbleUI.GetComponent<CollectionCounter>().Animation();
+            StartCoroutine("ClosePotBubble");
+            PuzzleStepManager.intance.steps++;
+            currentItems = 0;
+            stepNumber++;
+        }
+        else if (allItemsCollected && playerNear && Input.GetKeyDown("space") && !showBubble/*&& CharacterController2D.instance.carrying == false*/)
+        {
+            p_placedObjects.SetActive(true);
+            PuzzleStepManager.intance.steps++;
+            currentItems = 0;
+            playerNear = false;
+            stepNumber++;
+        }
+    }
+    private void MushroomsStep()
+    {
+        if (Input.GetKeyDown("space") && playerNear && !allItemsCollected && !locked)
+        {
+            showBubble = true;
+        }
+        if (showBubble)
+        {
+            m_bubbleUI.SetActive(true);
+            m_bubbleNumber.SetText(currentItems + "/5");
+            if (allItemsCollected == true)
+            {
+                m_bubbleNumber.SetText("5/5");
+            }
+        }
+        allItemsCollected = currentItems >= m_itemsToCollect;
+        if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/)
+        {
+            m_bubbleUI.GetComponent<CollectionCounter>().Animation();
+            StartCoroutine("CloseMushroomBubble");
+        }
+        else if (allItemsCollected && playerNear && Input.GetKeyDown("space") && !showBubble/*&& CharacterController2D.instance.carrying == false*/)
+        {
+            PuzzleStepManager.intance.steps++;
+            currentItems = 0;
+            stepNumber++;
+        }
+    }
 
-            ActivateInventory();
-    }
-    private void DialogueManager()
-    {
-        if (myCollection == collection.MUSHROOM)
-        {
-            switch (dialogueNumber)
-            {
-                case 1:
-                    text = "I should look for something to cook";
-                    break;
-                case 2:
-                    text = "I need more";
-                    break;
-            }
-        }
-        if (myCollection == collection.FIRESTICKS)
-        {
-            switch (dialogueNumber)
-            {
-                case 1:
-                    text = "I need something to start the fire";
-                    break;
-                case 2:
-                    text = "I need more";
-                    break;
-            }
-        }
-    }
-    private void BubbleActive()
-    {
-        bubbleUI.SetActive(true);
-        bubbleNumber.SetText(currentItems + "/5");
-        if (allItemsCollected == true)
-        {
-            bubbleNumber.SetText("5/5");
-        }
-    }
-    private void ActivateInventory()
-    {
-        if (currentItems >= 1)
-        {
-            inventoryUI.SetActive(true);
-            inventoryNumber.SetText(currentItems + "");
-        }
-        if (allItemsCollected)
-        {
-            inventoryNumber.SetText("5");
-        }
-    }
+    //private void ActivateInventory()
+    //{
+    //    if (currentItems >= 1)
+    //    {
+    //        inventoryUI.SetActive(true);
+    //        inventoryNumber.SetText(currentItems + "");
+    //    }
+    //    if (allItemsCollected)
+    //    {
+    //        inventoryNumber.SetText("5");
+    //    }
+    //}
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player"  && LevelDialogueManager.instance.talking == false)
         {
             playerNear = true; 
         }
@@ -140,11 +243,25 @@ public class CollectObjects : MonoBehaviour
             playerNear = false;
         }
     }
-    IEnumerator CloseBubble()
+    IEnumerator CloseFireBubble()
     {
         showBubble = false;
         yield return new WaitForSeconds(1f);
-        bubbleUI = null;
-        bubbleNumber = null;
+        f_bubbleUI = null;
+        f_bubbleNumber = null;
+    }
+    IEnumerator ClosePotBubble()
+    {
+        showBubble = false;
+        yield return new WaitForSeconds(1f);
+        p_bubbleUI = null;
+        p_bubbleNumber = null;
+    }
+    IEnumerator CloseMushroomBubble()
+    {
+        showBubble = false;
+        yield return new WaitForSeconds(1f);
+        m_bubbleUI = null;
+        m_bubbleNumber = null;
     }
 }

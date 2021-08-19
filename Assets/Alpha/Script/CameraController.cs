@@ -11,20 +11,34 @@ public class CameraController : MonoBehaviour
     public float rotationAmount = 10f;
 
     public bool rotating;
-    public float stopping = 70f;
+    public float stopping;
+
+    public Vector3 newPos;
+    public Vector3 currenPos;
+
+    [Header("Change this parameter for the angle")]
+    public float rotatingDegres;
+    private void Start()
+    {
+        stopping = rotatingDegres;
+        currenPos = transform.position;
+       
+    }
 
     private void Update()
     {
+        if(LevelDialogueManager.instance.talking == false) { 
+        if (Input.GetKeyDown(KeyCode.Q) && !rotating && stopping != rotatingDegres * -1)
+        {
+            targetAngle -= stopping;
 
-        if (Input.GetKeyDown(KeyCode.Q) && !rotating && stopping != -70f)
-        {
-            targetAngle -= 70f;
-            stopping = -70f;
+            stopping = -rotatingDegres;
         }
-        if (Input.GetKeyDown(KeyCode.E) && !rotating && stopping != 70f)
+        if (Input.GetKeyDown(KeyCode.E) && !rotating && stopping != rotatingDegres)
         {
-            targetAngle += 70f;
-            stopping = 70f;
+            targetAngle += stopping * -1;
+
+            stopping = rotatingDegres;
         }
         if(targetAngle != 0)
         {
@@ -35,6 +49,7 @@ public class CameraController : MonoBehaviour
         {
             rotating = false;
         }
+        }
     }
     private void Rotate()
     {
@@ -43,7 +58,9 @@ public class CameraController : MonoBehaviour
         {
             
             transform.RotateAround(targetObj.transform.position, Vector3.up,  Mathf.Round(-rotationAmount * step));
+            //transform.position = Vector3.MoveTowards(transform.position, currenPos, Time.deltaTime * 1);
             targetAngle -= Mathf.Round(rotationAmount * step);
+    
             if (targetAngle < 0)
                 targetAngle = 0;
 
@@ -52,6 +69,8 @@ public class CameraController : MonoBehaviour
         {
             transform.RotateAround(targetObj.transform.position, Vector3.up, Mathf.Round(rotationAmount * step));
             targetAngle += Mathf.Round(rotationAmount * step);
+            //transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime * 10);
+
 
             if (targetAngle > 0)
                 targetAngle = 0;

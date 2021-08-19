@@ -5,11 +5,58 @@ using UnityEngine;
 public class TargetController : MonoBehaviour
 {
     public bool canPick;
-    public GameObject myParent; 
+    public GameObject myParent;
+    public bool locked;
+    public int myStep;
+    public float shaking;
+    public string lockedDialogue;
+
+
+    private void Update()
+    {
+        if(myStep == myParent.GetComponent<CollectObjects>().stepNumber)
+        {
+            locked = false;
+        }
+        else if (myStep != myParent.GetComponent<CollectObjects>().stepNumber)
+        {
+            locked = true;
+        }
+
+        if(myStep == 1)
+        {
+            shaking = .5f;
+        }
+        else if (myStep == 2)
+        {
+            shaking = .2f;
+        }
+
+        else if (myStep == 3)
+        {
+            shaking = .3f;
+        }
+    }
+    public void Picked()
+    {
+        if (locked)
+        {
+            LockedAndPicked();
+        }
+        else
+        {
+            StartShake();
+        }
+    }
+    private void LockedAndPicked()
+    {
+        LevelDialogueManager.instance.DialoguePromt(lockedDialogue);
+        LevelDialogueManager.instance.talking = true;
+    }
     public void StartShake()
     {
         myParent.GetComponent<CollectObjects>().currentItems++;
-        StartCoroutine(Shake(.5f, .5f));
+        StartCoroutine(Shake(.5f, shaking));
     }
     public IEnumerator Shake(float duration, float magnitude)
     {
@@ -28,7 +75,6 @@ public class TargetController : MonoBehaviour
             yield return null;
         }
 
-        //gameObject.SetActive(false);
         transform.localPosition = startPos;
         Destroy(gameObject);
     }
