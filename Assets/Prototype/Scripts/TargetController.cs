@@ -30,11 +30,13 @@ public class TargetController : MonoBehaviour
         else if (myStep == 2)
         {
             shaking = .2f;
+            lockedDialogue = "I need something to cook this in...";
         }
 
         else if (myStep == 3)
         {
             shaking = .3f;
+            lockedDialogue = "I need something to heat this up...";
         }
     }
     public void Picked()
