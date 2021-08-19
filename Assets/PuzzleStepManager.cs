@@ -15,6 +15,7 @@ public class PuzzleStepManager : MonoBehaviour
     }
     private void Start()
     { 
+        //Opening scene 
         text = "I'm a little hungry";
         StartCoroutine("Dialogue");
     }
@@ -22,18 +23,21 @@ public class PuzzleStepManager : MonoBehaviour
     {
         if(steps == 2 && !step1)
         {
+            //after you add the fire sticks
             text = "Oh! I remember Grandma's old mushroom soup";
             StartCoroutine("Dialogue");
             step1 = true;
         }
         if (steps == 3 && !step2)
         {
+            //once you put down the pot
             text = "I need something to cook";
             StartCoroutine("Dialogue");
             step2 = true;
         }
         if (steps == 4 && !step3)
         {
+            //the finale text!
             text = "Just like grandma used to make it";
             StartCoroutine("LastDialogue");
 

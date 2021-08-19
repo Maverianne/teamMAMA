@@ -29,12 +29,14 @@ public class TargetController : MonoBehaviour
         }
         else if (myStep == 2)
         {
+            //if the pot is locked
             shaking = .2f;
             lockedDialogue = "I need something to cook this in...";
         }
 
         else if (myStep == 3)
         {
+            //if the mushrooms are locked
             shaking = .3f;
             lockedDialogue = "I need something to heat this up...";
         }
