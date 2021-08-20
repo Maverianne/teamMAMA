@@ -1441,7 +1441,7 @@ Camera:
   far clip plane: 1000
   field of view: 53
   orthographic: 1
-  orthographic size: 3.64
+  orthographic size: 3
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1465,7 +1465,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171425916}
   m_LocalRotation: {x: 0.17164803, y: 0.09759342, z: -0.028835697, w: 0.97988826}
-  m_LocalPosition: {x: -1.33, y: 5.04, z: -7.18}
+  m_LocalPosition: {x: -2.34, y: 5.07, z: -6.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 556500768}
@@ -1484,12 +1484,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38eb171b8c8920f4a9e1c0aaa0ec39ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObj: {fileID: 2033069400}
+  targetObj: {fileID: 307611887}
   targetAngle: 0
   rotationAmount: 10
   rotating: 0
   stopping: 0
-  newPos: {x: -6.8, y: 4.5, z: 1.2}
+  newPos: {x: -7.5, y: 5.02, z: -7}
   currenPos: {x: 0, y: 0, z: 0}
   rotatingDegres: 80
 --- !u!1 &180705643
@@ -2430,6 +2430,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1334800251896191348, guid: 3936643f098f98e4a93902c2d5009b52,
     type: 3}
   m_PrefabInstance: {fileID: 307434469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &307611887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 249534452383018408, guid: 04d740e522ac35f4a87fe431ecb5d986,
+    type: 3}
+  m_PrefabInstance: {fileID: 1907469727}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &350139103
 PrefabInstance:

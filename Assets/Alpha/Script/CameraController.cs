@@ -58,7 +58,7 @@ public class CameraController : MonoBehaviour
         {
             
             transform.RotateAround(targetObj.transform.position, Vector3.up,  Mathf.Round(-rotationAmount * step));
-            //transform.position = Vector3.MoveTowards(transform.position, currenPos, Time.deltaTime * 1);
+           
             targetAngle -= Mathf.Round(rotationAmount * step);
     
             if (targetAngle < 0)
@@ -68,8 +68,8 @@ public class CameraController : MonoBehaviour
         else if (targetAngle < 0)
         {
             transform.RotateAround(targetObj.transform.position, Vector3.up, Mathf.Round(rotationAmount * step));
+               
             targetAngle += Mathf.Round(rotationAmount * step);
-            //transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime * 10);
 
 
             if (targetAngle > 0)
