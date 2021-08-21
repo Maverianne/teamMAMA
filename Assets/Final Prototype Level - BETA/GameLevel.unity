@@ -1489,8 +1489,6 @@ MonoBehaviour:
   rotationAmount: 10
   rotating: 0
   stopping: 0
-  newPos: {x: -7.5, y: 5.02, z: -7}
-  currenPos: {x: 0, y: 0, z: 0}
   rotatingDegres: 80
 --- !u!1 &180705643
 GameObject:
@@ -5736,7 +5734,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I need to look for something
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c66b52124a892014d83ce385d3a75701, type: 2}
   m_sharedMaterial: {fileID: 4937449439194659098, guid: c66b52124a892014d83ce385d3a75701,
@@ -11274,6 +11272,7 @@ MonoBehaviour:
   speed: 0
   dialogueUI: {fileID: 756625949}
   dialogueText: {fileID: 817413556}
+  writingSpeed: 40
 --- !u!4 &1646282935
 Transform:
   m_ObjectHideFlags: 0

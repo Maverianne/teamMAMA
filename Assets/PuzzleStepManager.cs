@@ -17,7 +17,7 @@ public class PuzzleStepManager : MonoBehaviour
     { 
         //Opening scene 
         text = "After hiking for so long, I got really hungry.";
-        StartCoroutine("Dialogue");
+        StartCoroutine(Dialogue());
     }
     public void Update()
     {

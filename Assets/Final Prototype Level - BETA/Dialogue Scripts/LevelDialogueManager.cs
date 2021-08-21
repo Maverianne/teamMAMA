@@ -13,6 +13,9 @@ public class LevelDialogueManager : MonoBehaviour
     public float speed;
     public GameObject dialogueUI;
     public TMPro.TextMeshProUGUI dialogueText;
+
+    [SerializeField]private float writingSpeed = 50f;
+
     private void Awake()
     {
         instance = this;
@@ -36,9 +39,6 @@ public class LevelDialogueManager : MonoBehaviour
                     talking = false;
                 }
             }
-            else { StartCoroutine("EndDialogue"); }
-           
-   
         }
         else if (!talking)
         {
@@ -46,7 +46,7 @@ public class LevelDialogueManager : MonoBehaviour
             endDialogue = false;
             dialogueUI.SetActive(false);
         }
-        if (endDialogue && Input.GetKeyDown("space"))
+        if (endDialogue && Input.GetKeyDown("space") && !bye)
         {
             talking = false;
             dialogueUI.SetActive(false);
@@ -54,14 +54,27 @@ public class LevelDialogueManager : MonoBehaviour
         }
 
     }
-    public void DialoguePromt(string textUI = "")
+    public void DialoguePromt(string textToType)
     {
         talking = true;
-        dialogueText.SetText(textUI);
+        StartCoroutine(TypeText(textToType, dialogueText));
     }
-    public IEnumerator EndDialogue()
+    private IEnumerator TypeText(string textToType, TMP_Text textLabel)
     {
-        yield return new WaitForSeconds(0.5F);
+        dialogueText.text = string.Empty;
+
+        yield return new WaitForSeconds(.5f);
+        float time = 0;
+        int charIndex = 0;
+        while (charIndex < textToType.Length)
+        {
+            time += Time.deltaTime * writingSpeed;
+            charIndex = Mathf.FloorToInt(time);
+            charIndex = Mathf.Clamp(charIndex, 0, textToType.Length);
+            dialogueText.text = textToType.Substring(0, charIndex);
+            yield return null;
+        }
+        dialogueText.text = textToType;
         endDialogue = true;
     }
 }

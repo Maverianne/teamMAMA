@@ -13,15 +13,12 @@ public class CameraController : MonoBehaviour
     public bool rotating;
     public float stopping;
 
-    public Vector3 newPos;
-    public Vector3 currenPos;
 
     [Header("Change this parameter for the angle")]
     public float rotatingDegres;
     private void Start()
     {
         stopping = rotatingDegres;
-        currenPos = transform.position;
        
     }
 
