@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31fa966849f0a534b97e5bdee0dc0038, type: 3}
-  m_Name: Test
+  m_Name: Targets
   m_EditorClassIdentifier: 
   dialogue:
-  - 
-  - 
+  - I think I need something to heat this up with...
+  - I think I need something to cook this in...

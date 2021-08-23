@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-    public void NPCOne()
+    public void NPCOne(int sceneNumber)
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneNumber);
     }
     public void Credits()
     {

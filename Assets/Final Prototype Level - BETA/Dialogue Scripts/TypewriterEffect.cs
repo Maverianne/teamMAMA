@@ -6,12 +6,13 @@ using TMPro;
 public class TypewriterEffect : MonoBehaviour
 {
     [SerializeField]private float writingSpeed = 50;
-    public Coroutine Run(string textToType, TMP_Text textLabel)
+    public void Run(string textToType, TMP_Text textLabel)
     {
-        return StartCoroutine(TypeText(textToType, textLabel));
+         StartCoroutine(TypeText(textToType, textLabel));
     }
     private IEnumerator TypeText(string textToType, TMP_Text textLabel)
     {
+        textLabel.text = string.Empty;
         float time = 0;
         int charIndex = 0;
         while(charIndex < textToType.Length)

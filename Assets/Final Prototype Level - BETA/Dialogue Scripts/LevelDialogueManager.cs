@@ -63,7 +63,7 @@ public class LevelDialogueManager : MonoBehaviour
     {
         dialogueText.text = string.Empty;
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.2f);
         float time = 0;
         int charIndex = 0;
         while (charIndex < textToType.Length)

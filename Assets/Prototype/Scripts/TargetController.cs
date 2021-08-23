@@ -6,10 +6,12 @@ public class TargetController : MonoBehaviour
 {
     public bool canPick;
     public GameObject myParent;
-    public bool locked;
-    public int myStep;
+    private bool locked;
+    [SerializeField] private int myStep;
     public float shaking;
-    public string lockedDialogue;
+    private string lockedDialogue;
+    [SerializeField] private DialogueObjects dialogue;
+
 
 
     private void Update()
@@ -31,14 +33,14 @@ public class TargetController : MonoBehaviour
         {
             //if the pot is locked
             shaking = .2f;
-            lockedDialogue = "I think I need something to heat this up with...";
+            lockedDialogue = dialogue.Dialogue[0];
         }
 
         else if (myStep == 3)
         {
             //if the mushrooms are locked
             shaking = .3f;
-            lockedDialogue = "I think I need something to cook this in...";
+            lockedDialogue = dialogue.Dialogue[1]; ;
         }
     }
     public void Picked()

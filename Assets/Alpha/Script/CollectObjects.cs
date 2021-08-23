@@ -32,72 +32,29 @@ public class CollectObjects : MonoBehaviour
     public GameObject m_bubbleUI;
     public TMPro.TextMeshProUGUI m_bubbleNumber;
 
-    //[Header("Inventory")]
-    //public TMPro.TextMeshProUGUI inventoryNumber;
-    //public GameObject inventoryUI;
 
     [Header("Dialogue")]
-    public string text;
-    private int dialogueNumber;
-    public string collectionType;
-    public string lockedDialogue;
-    public string lookingDialogue;
+    private string text;
+    [SerializeField] private DialogueObjects dialogue;
 
 
     [Header("For Steps")]
     public int stepNumber;
     public bool locked;
-
-    ////ENUM for dialogue
-    //    enum collection
-    //    {
-    //        MUSHROOM,
-    //        FIRESTICKS,
-    //        POT
-    //    }
-    //    private collection myCollection;
-
     private void Start()
     {
-        //inventoryUI.SetActive(false);
+  
         f_bubbleUI.SetActive(false);
         m_bubbleUI.SetActive(false);
         p_bubbleUI.SetActive(false);
 
         p_placedObjects.SetActive(false);
         f_placedObjects.SetActive(false);
-        
-        //switch (collectionType)
-        //{
-        //    case "mushroom" :
-        //        myCollection = collection.MUSHROOM;
-        //        break;
-        //    case "firesticks":
-        //        myCollection = collection.FIRESTICKS;
-        //        break; 
-        //    case "pot":
-        //        myCollection = collection.FIRESTICKS;
-        //        break;
-        //}
     }
     private void Update()
     {
-        //DialogueManager();
         StepManager();
-
     }
-    //private void DialogueManager()
-    //{
-    //    switch (dialogueNumber)
-    //    {
-    //        case 1:
-    //            text = lockedDialogue;
-    //            break;
-    //        case 2:
-    //            text = lookingDialogue;
-    //            break;
-    //    }
-    //}
     private void StepManager()
     {
         if(stepNumber == 1)
@@ -116,7 +73,7 @@ public class CollectObjects : MonoBehaviour
     private void FirestickStep()
     {
         //First time you walk up to the firepit to prompt collecting sticks
-        text = "I think I need something to start the fire with...";
+        text = dialogue.Dialogue[0];
         if (Input.GetKeyDown("space") && playerNear && !allItemsCollected && !locked)
         {
             LevelDialogueManager.instance.DialoguePromt(text);
@@ -217,18 +174,6 @@ public class CollectObjects : MonoBehaviour
         }
     }
 
-    //private void ActivateInventory()
-    //{
-    //    if (currentItems >= 1)
-    //    {
-    //        inventoryUI.SetActive(true);
-    //        inventoryNumber.SetText(currentItems + "");
-    //    }
-    //    if (allItemsCollected)
-    //    {
-    //        inventoryNumber.SetText("5");
-    //    }
-    //}
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player"  && LevelDialogueManager.instance.talking == false)

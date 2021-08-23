@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class MainMenuStart : MonoBehaviour
 {
+    public static MainMenuStart intance;
     public Animator anim;
     public bool canStart;
-    public GameObject dialogue; 
+    public GameObject dialogue;
 
+    public bool startDialogue;
+
+    private void Awake()
+    {
+        intance = this;        
+    }
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -30,6 +37,8 @@ public class MainMenuStart : MonoBehaviour
     }
     public void DestroyAnim()
     {
+        startDialogue = true;
         Destroy(gameObject);
     }
+
 }
