@@ -13,6 +13,7 @@ public class LevelDialogueManager : MonoBehaviour
     public float speed;
     public GameObject dialogueUI;
     public TMPro.TextMeshProUGUI dialogueText;
+    private AudioSource typing;
 
     [SerializeField]private float writingSpeed = 50f;
 
@@ -20,6 +21,10 @@ public class LevelDialogueManager : MonoBehaviour
     {
         instance = this;
         speed = CharacterController2D.instance.speed;
+    }
+    private void Start()
+    {
+        typing = gameObject.GetComponent<AudioSource>();
     }
     public void Update()
     {
@@ -68,6 +73,7 @@ public class LevelDialogueManager : MonoBehaviour
         int charIndex = 0;
         while (charIndex < textToType.Length)
         {
+            typing.Play();
             time += Time.deltaTime * writingSpeed;
             charIndex = Mathf.FloorToInt(time);
             charIndex = Mathf.Clamp(charIndex, 0, textToType.Length);
@@ -75,6 +81,7 @@ public class LevelDialogueManager : MonoBehaviour
             yield return null;
         }
         dialogueText.text = textToType;
+        typing.Stop();
         endDialogue = true;
     }
 }

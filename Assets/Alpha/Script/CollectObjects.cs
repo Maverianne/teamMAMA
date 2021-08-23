@@ -32,7 +32,6 @@ public class CollectObjects : MonoBehaviour
     public GameObject m_bubbleUI;
     public TMPro.TextMeshProUGUI m_bubbleNumber;
 
-
     [Header("Dialogue")]
     private string text;
     [SerializeField] private DialogueObjects dialogue;
@@ -41,6 +40,9 @@ public class CollectObjects : MonoBehaviour
     [Header("For Steps")]
     public int stepNumber;
     public bool locked;
+
+
+    [SerializeField] private AudioSource success;
     private void Start()
     {
   
@@ -50,10 +52,13 @@ public class CollectObjects : MonoBehaviour
 
         p_placedObjects.SetActive(false);
         f_placedObjects.SetActive(false);
+
+        success = gameObject.GetComponent<AudioSource>();
     }
     private void Update()
     {
         StepManager();
+
     }
     private void StepManager()
     {
@@ -92,6 +97,7 @@ public class CollectObjects : MonoBehaviour
         allItemsCollected = currentItems >= f_itemsToCollect;
         if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/)
         {
+            success.Play();
             f_placedObjects.SetActive(true);
             //  PushObject.instance.canBeHome = true;
             f_bubbleUI.GetComponent<CollectionCounter>().Animation();
@@ -103,6 +109,7 @@ public class CollectObjects : MonoBehaviour
         }
         else if (allItemsCollected && playerNear && Input.GetKeyDown("space") && !showBubble/*&& CharacterController2D.instance.carrying == false*/)
         {
+            success.Play();
             f_placedObjects.SetActive(true);
             PuzzleStepManager.intance.steps++;
             currentItems = 0;
@@ -128,6 +135,7 @@ public class CollectObjects : MonoBehaviour
         allItemsCollected = currentItems >= p_itemsToCollect;
         if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/)
         {
+            success.Play();
             p_placedObjects.SetActive(true);
             playerNear = false;
             p_bubbleUI.GetComponent<CollectionCounter>().Animation();
@@ -138,6 +146,7 @@ public class CollectObjects : MonoBehaviour
         }
         else if (allItemsCollected && playerNear && Input.GetKeyDown("space") && !showBubble/*&& CharacterController2D.instance.carrying == false*/)
         {
+            success.Play();
             p_placedObjects.SetActive(true);
             PuzzleStepManager.intance.steps++;
             currentItems = 0;
@@ -163,11 +172,13 @@ public class CollectObjects : MonoBehaviour
         allItemsCollected = currentItems >= m_itemsToCollect;
         if (allItemsCollected && playerNear && Input.GetKeyDown("space") && showBubble/*&& CharacterController2D.instance.carrying == false*/)
         {
+            success.Play();
             m_bubbleUI.GetComponent<CollectionCounter>().Animation();
             StartCoroutine("CloseMushroomBubble");
         }
         else if (allItemsCollected && playerNear && Input.GetKeyDown("space") && !showBubble/*&& CharacterController2D.instance.carrying == false*/)
         {
+            success.Play();
             PuzzleStepManager.intance.steps++;
             currentItems = 0;
             stepNumber++;

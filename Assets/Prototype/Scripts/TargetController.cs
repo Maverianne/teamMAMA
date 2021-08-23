@@ -10,7 +10,13 @@ public class TargetController : MonoBehaviour
     [SerializeField] private int myStep;
     public float shaking;
     private string lockedDialogue;
+
+    [SerializeField]private bool fire;
     [SerializeField] private DialogueObjects dialogue;
+    [SerializeField] private AudioSource fireStick;
+    [SerializeField] private AudioSource collecting;
+
+
 
 
 
@@ -52,6 +58,16 @@ public class TargetController : MonoBehaviour
         else
         {
             StartShake();
+            if (fire)
+            {
+                fireStick.Play();
+                Debug.Log("Im fire");
+            }
+            else
+            {
+                collecting.Play();
+                Debug.Log("Im collecting");
+            }
         }
     }
     private void LockedAndPicked()
@@ -61,6 +77,7 @@ public class TargetController : MonoBehaviour
     }
     public void StartShake()
     {
+    
         myParent.GetComponent<CollectObjects>().currentItems++;
         StartCoroutine(Shake(.5f, shaking));
     }

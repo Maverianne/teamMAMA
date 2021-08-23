@@ -20,6 +20,8 @@ public class MainMenuDialogueManager : MonoBehaviour
     public bool dialogueTime;
     public bool coroutine;
 
+    private AudioSource typing;
+
     public string text;
 
     public void Awake()
@@ -28,6 +30,7 @@ public class MainMenuDialogueManager : MonoBehaviour
     }
     private void Start()
     {
+        typing = gameObject.GetComponent<AudioSource>();
         int array = dialogueBox.Length;
         dialogueAnim = new Animator[array];
 
@@ -101,6 +104,7 @@ public class MainMenuDialogueManager : MonoBehaviour
         int charIndex = 0;
         while (charIndex < textToType.Length)
         {
+            typing.Play();
             time += Time.deltaTime * writingSpeed;
             charIndex = Mathf.FloorToInt(time);
             charIndex = Mathf.Clamp(charIndex, 0, textToType.Length);
@@ -108,6 +112,7 @@ public class MainMenuDialogueManager : MonoBehaviour
             yield return null;
         }
         textLabel.text = textToType;
+        typing.Stop();
         talking = false;
         turn++;
     }
