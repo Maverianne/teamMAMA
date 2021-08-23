@@ -83,6 +83,7 @@ public class CollectObjects : MonoBehaviour
         {
             LevelDialogueManager.instance.DialoguePromt(text);
             LevelDialogueManager.instance.talking = true;
+            playerNear = false;
             showBubble = true;
         }
         if (showBubble)

@@ -86,10 +86,6 @@ public class MainMenuDialogueManager : MonoBehaviour
         if(i != 0) {
             StartCoroutine(Close(dialogueBox[i-1]));
         }
-        else
-        {
-            Debug.Log("there is nothing to close");
-        }
     }
 
     public void Run(string textToType, TMP_Text textLabel, float writingSpeed)
