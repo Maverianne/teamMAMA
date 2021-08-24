@@ -58,16 +58,7 @@ public class TargetController : MonoBehaviour
         else
         {
             StartShake();
-            if (fire)
-            {
-                fireStick.Play();
-                Debug.Log("Im fire");
-            }
-            else
-            {
-                collecting.Play();
-                Debug.Log("Im collecting");
-            }
+            collecting.Play();
         }
     }
     private void LockedAndPicked()
