@@ -14,11 +14,12 @@ public class SettingsManager : MonoBehaviour
     {
         mixer.SetFloat("MusicVol", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("MusicVolume", sliderValue);
-        //GameManager.
+        GameManager.intance.Click();
     }
     public void SetLevelSFX(float sliderValue)
     {
         mixer.SetFloat("SFXVol", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("SFXVolume", sliderValue);
+        GameManager.intance.Click();
     }
 }
