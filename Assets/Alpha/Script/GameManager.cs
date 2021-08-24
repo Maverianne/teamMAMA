@@ -9,21 +9,26 @@ public class GameManager : MonoBehaviour
     public static GameManager intance;
     public GameObject bye;
     public GameObject settings;
+    public GameObject menu;
 
     [SerializeField]private AudioSource click;
 
     public Slider musicSlider;
     public Slider SFXSlider;
 
+    [SerializeField]private bool startScreen;
+
+    //For Pause
+    public bool pause;
     private void Awake()
     {
         intance = this; 
     }
     private void Update()
     {
-        if (bye)
+        if (Input.GetKeyDown(KeyCode.Escape) && !startScreen) 
         {
-            Reload();
+            GameMenu();
         }
 
     }
@@ -39,9 +44,8 @@ public class GameManager : MonoBehaviour
     }
     public void Credits()
     {
-        CharacterController2D.instance.speed = 0;
-        CharacterController2D.instance.anim.SetBool("isMoving", false);
         bye.SetActive(true);
+        Reload();
     }
     public void Reload()
     {
@@ -65,5 +69,14 @@ public class GameManager : MonoBehaviour
     public void Click()
     {
         click.Play();
+    }
+    public void GameMenu()
+    {
+        Click();
+        if (menu)
+        {
+            menu.SetActive(!menu.activeSelf);
+        }
+        pause = !pause;
     }
 }

@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]private AudioSource rotationClick;
     [SerializeField]private AudioSource rotatingSound;
 
-
+    public bool pause;
 
 
     [Header("Change this parameter for the angle")]
@@ -29,31 +29,33 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if(LevelDialogueManager.instance.talking == false) { 
-            if (Input.GetKeyDown(KeyCode.Q) && !rotating && stopping != rotatingDegres * -1)
-            {
-               rotationClick.Play();
-                //rotatingSound.Play();
-                targetAngle -= stopping;
-                stopping = -rotatingDegres;
-            }
-            if (Input.GetKeyDown(KeyCode.E) && !rotating && stopping != rotatingDegres)
-            {
-                rotationClick.Play();
-                //rotatingSound.Play();
-                targetAngle += stopping * -1;
-                stopping = rotatingDegres;
-            }
-            if(targetAngle != 0)
-            {
-                Rotate();
-                rotating = true;
-            }
-            else
-            {
-                rotating = false;
-                //rotatingSound.Stop();
-            }
+        if (GameManager.intance.pause == false && LevelDialogueManager.instance.talking == false) 
+        {
+            Controls();
+        }
+    }
+    private void Controls()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && !rotating && stopping != rotatingDegres * -1)
+        {
+            rotationClick.Play();
+            targetAngle -= stopping;
+            stopping = -rotatingDegres;
+        }
+        if (Input.GetKeyDown(KeyCode.E) && !rotating && stopping != rotatingDegres)
+        {
+            rotationClick.Play();
+            targetAngle += stopping * -1;
+            stopping = rotatingDegres;
+        }
+        if (targetAngle != 0)
+        {
+            Rotate();
+            rotating = true;
+        }
+        else
+        {
+            rotating = false;
         }
     }
     private void Rotate()

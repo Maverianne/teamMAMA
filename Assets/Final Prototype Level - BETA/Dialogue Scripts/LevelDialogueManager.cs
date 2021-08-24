@@ -28,17 +28,24 @@ public class LevelDialogueManager : MonoBehaviour
     }
     public void Update()
     {
+        if (GameManager.intance.pause == false) 
+        {
+            TalkingDialogue();
+        }
+
+    }
+    public void TalkingDialogue()
+    {
         if (talking)
         {
-            CharacterController2D.instance.speed = 0;
-            CharacterController2D.instance.anim.SetBool("isMoving", false);
+            CharacterController2D.instance.StopMe();
             dialogueUI.SetActive(true);
             if (bye)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     dialogueUI.SetActive(false);
-                
+
                     GameManager.intance.Credits();
                     bye = false;
                     talking = false;
@@ -47,7 +54,7 @@ public class LevelDialogueManager : MonoBehaviour
         }
         else if (!talking)
         {
-            CharacterController2D.instance.speed = speed;
+            CharacterController2D.instance.Continue();
             endDialogue = false;
             dialogueUI.SetActive(false);
         }
@@ -57,7 +64,6 @@ public class LevelDialogueManager : MonoBehaviour
             dialogueUI.SetActive(false);
             endDialogue = false;
         }
-
     }
     public void DialoguePromt(string textToType)
     {

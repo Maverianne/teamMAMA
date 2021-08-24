@@ -14,6 +14,7 @@ public class CharacterController2D : MonoBehaviour
         public Transform camTrans;
         public Vector3 moveDirection;
         public float speed;
+    public float saveSpeed;
 
     [Header("Gravity")]
         public float gravity;
@@ -46,6 +47,7 @@ public class CharacterController2D : MonoBehaviour
     {
         anim = charSprite.GetComponent<Animator>();
         anim.SetBool("facingFront", true);
+        saveSpeed = speed;
     }
     private void Update()
     {
@@ -66,7 +68,26 @@ public class CharacterController2D : MonoBehaviour
         {
             collect = null;
         }
+        if (GameManager.intance.pause)
+        {
+            StopMe();
+        }
+        else
+        {
+            Continue();
+        }
+        
 
+    }
+
+    public void StopMe() 
+    {
+        speed = 0;
+        anim.SetBool("isMoving", false);
+    }
+    public void Continue()
+    {
+        speed = saveSpeed;
     }
     private void PickingObject()
     {
