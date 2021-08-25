@@ -11,12 +11,20 @@ public class GameManager : MonoBehaviour
     public GameObject settings;
     public GameObject menu;
 
+    
+
     [SerializeField] private AudioSource click;
     public Slider musicSlider;
     public Slider SFXSlider;
 
     [SerializeField] private bool startScreen;
     [SerializeField]private bool reloadWait = false;
+
+    //for transition-------------------
+    public Animator transitionAnimation;
+    public float transitionTime = 1f;
+    //---------------------------------
+
     //For Pause
     public bool pause;
     private void Awake()
@@ -45,10 +53,35 @@ public class GameManager : MonoBehaviour
         Application.Quit();
         Debug.Log("quitting");
     }
+    
+
+    //THIS IS WHERE WE TRIGGER THE TRANSITION-----------------------------
+
+    //public void ChangeScene(int sceneNumber)
+    //{
+    //    SceneManager.LoadScene(sceneNumber);
+    //}
+
     public void ChangeScene(int sceneNumber)
     {
+        StartCoroutine(transition(sceneNumber));
+    }
+
+    IEnumerator transition (int sceneNumber)
+    {
+        //trigger anim
+        transitionAnimation.SetTrigger("trans");
+
+        //wait
+        yield return new WaitForSeconds(transitionTime);
+
+        //scene change
         SceneManager.LoadScene(sceneNumber);
     }
+
+    //END OF VOID WE NEED TO USE FOR TRANSITION--------------------------
+
+
     public void Credits()
     {
         bye.SetActive(true);
