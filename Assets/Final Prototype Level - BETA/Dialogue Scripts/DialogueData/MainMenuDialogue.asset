@@ -13,8 +13,17 @@ MonoBehaviour:
   m_Name: MainMenuDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - 'The trek to the lake sure is hard, huh? '
-  - Tell me about it....
-  - 'Aw guys, it''s not that bad!
-
-    I had lot of fun hiking today..'
+  - 'It seems the three of us have trekked the journey to making it to... '
+  - the fabled Lake of the Fallen Star.
+  - Dude, those trees and bushes totally destroyed me out there.
+  - But that's what makes it a challenge!
+  - Same. I'm not unfit but those trails really tuckered me out.
+  - How about you?
+  - ...
+  - ' ...Oh, were you talking to me?'
+  - Yeah,
+  - ' just wondering if you had any struggles on your travels here?'
+  - Oh... well I've done a lot of hiking growing up with my grandparents,
+  - 'so the routes weren''t that troubling for me... '
+  - 'but I was having some... '
+  - ' hassle to make a mushroom soup yesterday...'

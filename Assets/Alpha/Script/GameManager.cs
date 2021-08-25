@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
         Debug.Log("quitting");
     }
-    public void NPCOne(int sceneNumber)
+    public void ChangeScene(int sceneNumber)
     {
         SceneManager.LoadScene(sceneNumber);
     }
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene(0);
+            ChangeScene(0);
         }
     }
 

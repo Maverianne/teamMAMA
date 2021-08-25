@@ -59,32 +59,103 @@ public class MainMenuDialogueManager : MonoBehaviour
     {
         if (turn == 0 && !talking)
         {
-            DialogueData();
+            DialogueData("Player", "");   
         }
         else if (turn == 1 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData();
+            DialogueData("Player", "");
         }
         else if (turn == 2 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData();
+            DialogueData("Ramon", "Player");
         }
         else if (turn == 3 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            StartCoroutine(Close(dialogueBox[turn - 1]));
+            DialogueData("Ramon", "");
+        }
+        else if (turn == 4 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Player", "Ramon");
+        }
+        else if (turn == 5 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Player", "");
+        }   
+        else if (turn == 6 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Player", "");
+        } 
+        else if (turn == 7 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Sasha", "Player");
+        }
+        else if (turn == 8 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Player", "Sasha");
+        }
+        else if (turn == 9 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Player", "");
+        }
+        else if (turn == 10 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Sasha", "Player");
+        }
+        else if (turn == 11 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Sasha", "");
+        } 
+        else if (turn == 12 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Sasha", "");
+        } 
+        else if (turn == 13 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Sasha", "");
+        }
+        else if (turn == 14 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            StartCoroutine(Close(dialogueBox[2], 2));
             StartCoroutine(NewScene());
-
         }
     }
-    private void DialogueData()
+    private void DialogueData(string characterName, string previousCharacter)
     {
         talking = true;
         int i = turn;
+        int c = 0;
+        int b = 0;
+
         text = dialogue.Dialogue[i];
-        anim[i].SetTrigger("talking");
-        Open(dialogueBox[i]);
-        if(i != 0) {
-            StartCoroutine(Close(dialogueBox[i-1]));
+        if (characterName == "Player" )
+        {
+            c = 0;
+        }
+        else if (characterName == "Ramon")
+        {
+            c = 1;
+        }
+        else if (characterName == "Sasha")
+        {
+            c = 2;
+        }
+        anim[c].SetTrigger("talking");
+        Open(dialogueBox[c], c);
+
+        if (previousCharacter == "Player")
+        {
+            b = 0;
+        }
+        else if (previousCharacter == "Ramon")
+        {
+            b = 1;
+        }
+        else if (previousCharacter == "Sasha")
+        {
+            b = 2;
+        }
+        if (previousCharacter != "") {
+            StartCoroutine(Close(dialogueBox[b], b));
         }
     }
 
@@ -112,15 +183,15 @@ public class MainMenuDialogueManager : MonoBehaviour
         talking = false;
         turn++;
     }
-    private void Open(GameObject box){
+    private void Open(GameObject box, int c){
         
         box.SetActive(true);
-        Run(text, textBox[turn], 25);
+        Run(text, textBox[c], 25);
     }
-    private IEnumerator Close(GameObject box)
+    private IEnumerator Close(GameObject box, int b)
     {
-        dialogueAnim[turn - 1].SetTrigger("close");
-        textBox[turn - 1].text = string.Empty;
+        dialogueAnim[b].SetTrigger("close");
+        textBox[b].text = string.Empty;
         yield return new WaitForSeconds(.5f);
         box.SetActive(false);
     }
@@ -134,6 +205,6 @@ public class MainMenuDialogueManager : MonoBehaviour
     private IEnumerator NewScene()
     {
         yield return new WaitForSeconds(.5f);
-        GameManager.intance.NPCOne(1);
+        GameManager.intance.ChangeScene(1);
     }
 }
