@@ -64,47 +64,47 @@ public class MainMenuDialogueManager : MonoBehaviour
         else if (turn == 1 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
             DialogueData("Player", "");
-        }
+        }  
         else if (turn == 2 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Ramon", "Player");
+            DialogueData("Player", "");
         }
         else if (turn == 3 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Ramon", "");
+            DialogueData("Ramon", "Player");
         }
         else if (turn == 4 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Player", "Ramon");
+            DialogueData("Ramon", "");
         }
         else if (turn == 5 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Player", "");
-        }   
+            DialogueData("Player", "Ramon");
+        }
         else if (turn == 6 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
             DialogueData("Player", "");
-        } 
+        }   
         else if (turn == 7 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Sasha", "Player");
-        }
+            DialogueData("Player", "");
+        } 
         else if (turn == 8 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Player", "Sasha");
+            DialogueData("Sasha", "Player");
         }
         else if (turn == 9 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Player", "");
+            DialogueData("Player", "Sasha");
         }
         else if (turn == 10 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Sasha", "Player");
+            DialogueData("Player", "");
         }
         else if (turn == 11 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
-            DialogueData("Sasha", "");
-        } 
+            DialogueData("Sasha", "Player");
+        }
         else if (turn == 12 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
             DialogueData("Sasha", "");
@@ -112,8 +112,12 @@ public class MainMenuDialogueManager : MonoBehaviour
         else if (turn == 13 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
             DialogueData("Sasha", "");
-        }
+        } 
         else if (turn == 14 && Input.GetKeyDown(KeyCode.Space) && !talking)
+        {
+            DialogueData("Sasha", "");
+        }
+        else if (turn == 15 && Input.GetKeyDown(KeyCode.Space) && !talking)
         {
             StartCoroutine(Close(dialogueBox[2], 2));
             StartCoroutine(NewScene());
