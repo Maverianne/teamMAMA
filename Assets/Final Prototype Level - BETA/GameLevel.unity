@@ -9353,6 +9353,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0587d30a185d5b4bbed5c5b36563f85, type: 3}
+--- !u!95 &1149710122 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2268448685413373811, guid: f0587d30a185d5b4bbed5c5b36563f85,
+    type: 3}
+  m_PrefabInstance: {fileID: 1149710121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1159721057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12801,7 +12807,7 @@ MonoBehaviour:
   SFXSlider: {fileID: 1013408821}
   startScreen: 0
   reloadWait: 0
-  transitionAnimation: {fileID: 0}
+  transitionAnimation: {fileID: 1149710122}
   transitionTime: 1
   pause: 0
 --- !u!114 &1646282937
