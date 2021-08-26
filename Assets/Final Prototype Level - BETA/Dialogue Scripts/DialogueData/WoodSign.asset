@@ -15,4 +15,4 @@ MonoBehaviour:
   dialogue:
   - 'It says...
 
-    Press Q and E to rotate.'
+    "Press Q and E to rotate."'
