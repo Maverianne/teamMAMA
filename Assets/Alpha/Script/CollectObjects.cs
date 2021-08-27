@@ -16,6 +16,8 @@ public class CollectObjects : MonoBehaviour
 
     [Header("Firestick Bubble Counter UI")]
     public GameObject f_placedObjects;
+    [SerializeField] ParticleSystem FireParticles1 = null;
+    [SerializeField] ParticleSystem FireParticles2 = null;
     public int f_itemsToCollect;
     public GameObject f_bubbleUI;
     public TMPro.TextMeshProUGUI f_bubbleNumber;
@@ -100,6 +102,7 @@ public class CollectObjects : MonoBehaviour
         {
             success.Play();
             f_placedObjects.SetActive(true);
+            PlayFireParticles();
             //  PushObject.instance.canBeHome = true;
             f_bubbleUI.GetComponent<CollectionCounter>().Animation();
             StartCoroutine("CloseFireBubble");
@@ -112,6 +115,7 @@ public class CollectObjects : MonoBehaviour
         {
             success.Play();
             f_placedObjects.SetActive(true);
+            PlayFireParticles();
             PuzzleStepManager.intance.steps++;
             currentItems = 0;
             playerNear = false;
@@ -220,5 +224,11 @@ public class CollectObjects : MonoBehaviour
         yield return new WaitForSeconds(1f);
         m_bubbleUI = null;
         m_bubbleNumber = null;
+    }
+
+    public void PlayFireParticles()
+    {
+        FireParticles1.Play();
+        FireParticles2.Play();
     }
 }
