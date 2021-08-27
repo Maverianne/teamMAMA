@@ -15,7 +15,7 @@ public class TargetController : MonoBehaviour
     [SerializeField] private DialogueObjects dialogue;
     [SerializeField] private AudioSource fireStick;
     [SerializeField] private AudioSource collecting;
-
+    [SerializeField] ParticleSystem SparkleParticles = null;
 
 
 
@@ -58,6 +58,7 @@ public class TargetController : MonoBehaviour
         else
         {
             StartShake();
+            PlaySparkleParticle();
             collecting.Play();
         }
     }
@@ -105,5 +106,10 @@ public class TargetController : MonoBehaviour
         {
             canPick = false;
         }
+    }
+
+    public void PlaySparkleParticle()
+    {
+        SparkleParticles.Play();
     }
 }
